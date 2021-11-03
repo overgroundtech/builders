@@ -73,7 +73,7 @@ export default function Navbar () {
 
     return (
         <>
-            <AppBar color="inherit">
+            <AppBar elevation={1} color="inherit">
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h5" component="p" className={classes.logo}>
                         logo
