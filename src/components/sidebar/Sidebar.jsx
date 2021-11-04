@@ -53,7 +53,7 @@ const menuItems = [
     },
     {
         text:"Bathrooms",
-        id:4,
+        id:5,
         icon:<AddCircleOutlined color='secondary'/>,
         
     }
