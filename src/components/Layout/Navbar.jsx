@@ -7,7 +7,8 @@ import {
     Typography,
     Avatar,
     Badge,
-    IconButton
+    IconButton,
+    alpha
 } from '@material-ui/core';
 import {
      Search,
@@ -43,9 +44,12 @@ const useStyles = makeStyles( theme => ({
     search: {
         display: "flex",
         alignItems: "center",
-        background: grey[100],
+        background: grey[300],
         width: theme.spacing(50),
         borderRadius: theme.shape.borderRadius,
+        '&: hover': {
+            backgroundColor: 'blue'   
+        },
         [theme.breakpoints.down("md")]: {
             display: (show) => {
                 if(show){
