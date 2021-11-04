@@ -46,13 +46,13 @@ const menuItems = [
         
     },
     {
-        text:"Basins",
+        text:"Toilets",
         id:3,
         icon:<AddCircleOutlined color='secondary'/>,
         
     },
     {
-        text:"Basins",
+        text:"Bathrooms",
         id:4,
         icon:<AddCircleOutlined color='secondary'/>,
         

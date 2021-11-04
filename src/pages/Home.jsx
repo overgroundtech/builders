@@ -8,7 +8,7 @@ export default function Home() {
 
     return (
         <Container>
-            <Grid container>
+            <Grid container spacing={2} >
                 <Grid item xs={12} md={4} lg={3} >
                     <Sidebar/>
                 </Grid>
