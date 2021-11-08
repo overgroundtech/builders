@@ -55,7 +55,7 @@ export default function Carousel () {
                     <img src={item.image} alt={`slide ${index}`} className={classes.sliderImage}/>
                     <Typography variant="h5" className={classes.sliderTitle}>
                         Hero Slide
-                        <Typography variant="h6" className={classes.sliderTitle}>
+                        <Typography variant="h6"  component="p" className={classes.sliderTitle}>
                             sub Title
                         </Typography>
                     </Typography>

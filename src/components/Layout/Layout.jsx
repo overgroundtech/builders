@@ -12,8 +12,7 @@ export default function Layout({ children }) {
     return (
         <>
             <Navbar /> 
-            <div className={classes.toolbar}></div>
-
+            <div className={classes.toolbar} />
             {children}
         </>
      )

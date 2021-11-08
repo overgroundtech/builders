@@ -4,19 +4,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import {SubjectOutlined,AddCircleOutlined} from '@material-ui/icons'
 import { Card,CardMedia,CardContent, CardActionArea} from '@material-ui/core'
 
-const useSyles = makeStyles (theme=>({
+const useStyles = makeStyles (theme=>({
     sidebarContainer:{
         boxShadow:theme.shadows[5],
         height:'auto',
-        [theme.breakpoints.up('sm')]:{
-            backgroundColor:'red',
+        [theme.breakpoints.up('md')]:{
             display:'none',
         },
-    },
-    listitems:{
-        [theme.breakpoints.down('sm')]:{
-            display:'flex',
-        }
     },
     root:{
         maxWidth:'50',
@@ -38,12 +32,12 @@ const useSyles = makeStyles (theme=>({
     objectFit:'cover',
     },
 
-    mediaimage:{
+    mediaImage:{
         height:'100%',
         width:'100%',
         maxHeight:'75px'
     },
-    textstyle:{
+    textStyle:{
         textAlign:'center',
         fontSize:'14px',
     }
@@ -93,9 +87,9 @@ const menuItems = [
     }
 ]
 
-function Sidebarmobile() {
+function SidebarMobile() {
 
-    const classes = useSyles()
+    const classes = useStyles()
 
     return (
         <Grid container className={classes.sidebarContainer} >
@@ -105,10 +99,10 @@ function Sidebarmobile() {
                         <CardActionArea>
                             <CardMedia
                              className={classes.media}> 
-                                <img src={item.image} alt="" className={classes.mediaimage}/>
+                                <img src={item.image} className={classes.mediaImage} alt={item.id + "image"} />
                              </CardMedia>                   
                             <CardContent>
-                                <Typography gutterBottom variant="body-" component="h2" className={classes.textstyle}>
+                                <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
                                     {item.text}
                                 </Typography>
                             </CardContent>
@@ -122,4 +116,4 @@ function Sidebarmobile() {
     )
 }
 
-export default Sidebarmobile
+export default SidebarMobile

@@ -8,7 +8,6 @@ import {
     Avatar,
     Badge,
     IconButton,
-    alpha
 } from '@material-ui/core';
 import {
      Search,
@@ -44,13 +43,13 @@ const useStyles = makeStyles( theme => ({
     search: {
         display: "flex",
         alignItems: "center",
-        background: grey[300],
+        background: grey[100],
         width: theme.spacing(50),
         borderRadius: theme.shape.borderRadius,
         '&: hover': {
             backgroundColor: 'blue'   
         },
-        [theme.breakpoints.down("md")]: {
+        [theme.breakpoints.down("sm")]: {
             display: (show) => {
                 if(show){
                     return "flex"
@@ -59,6 +58,9 @@ const useStyles = makeStyles( theme => ({
                 }
             }
         }
+    },
+    searchIcon: {
+        marginLeft: theme.spacing(1)
     },
     searchInput: {
         marginLeft: theme.spacing(1),
@@ -83,7 +85,7 @@ export default function Navbar () {
                         logo
                     </Typography>
                     <div className={classes.search}>
-                        <Search />
+                        <Search className={classes.searchIcon} />
                         <InputBase placeholder="Search..."  className={classes.searchInput} />
                         <Cancel className={classes.cancel} onClick={() => {setShow(false)}} />
                     </div>

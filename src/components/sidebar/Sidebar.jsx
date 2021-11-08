@@ -6,28 +6,21 @@ import { makeStyles} from '@material-ui/core'
 import { SubjectOutlined,AddCircleOutlined } from '@material-ui/icons'
 
 
-// const sidebarWidth = 240
-
-
 const useStyles = makeStyles(theme=>({
     sidebarContainer:{
-<<<<<<< HEAD
         marginTop:theme.spacing(1),
         display:'flex',
-=======
-        marginTop:theme.spacing(3),
-        // display:'flex',
->>>>>>> sidebar
+
         boxShadow:"0 0 6px hsl(210 14% 80%)",
         height:'auto',
-        [theme.breakpoints.down('xs')]:{
+        [theme.breakpoints.down('sm')]:{
             display:"none"
         }
     },
-    menuitems: {
+    menuItems: {
       padding:theme.spacing(0.5),
       marginLeft:'10px',
-      
+
     },
 
 }))
@@ -42,24 +35,24 @@ const menuItems = [
         text:"Basins",
         id:2,
         icon:<AddCircleOutlined color ='secondary'/>
-        
+
     },
     {
         text:"Toilets",
         id:3,
-        icon:<AddCircleOutlined color ='secondary'/>   
+        icon:<AddCircleOutlined color ='secondary'/>
     },
     {
         text:"Kitchenware",
         id:4,
         icon:<SubjectOutlined color ='secondary'/>
-        
+
     },
     {
         text:"Bathrooms",
         id:5,
         icon:<SubjectOutlined color ='secondary'/>
-        
+
     }
 ]
 
@@ -69,15 +62,15 @@ function Sidebar() {
 
     return (
         <div className={classes.sidebarContainer} >
-            <List className = {classes.listitems}>
+            <List>
                 {menuItems.map(item=>(
                     <ListItem key={item.id}
                     button
-                    className={classes.menuitems}
+                    className={classes.menuItems}
                      >
                          <ListItemIcon> {item.icon}</ListItemIcon>
                         <ListItemText>{item.text}</ListItemText>
-                    </ListItem>  
+                    </ListItem>
                 ))}
             </List>
         </div>
