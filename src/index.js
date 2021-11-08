@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { createUploadLink } from 'apollo-upload-client';
+
+
+const link = createUploadLink({
+  uri: 'https://kimita.pythonanywhere.com/graphql/'
+});
+
+const client = new ApolloClient({
+    link,
+    cache: new InMemoryCache()
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <ApolloProvider client={client}>
+          <App />
+      </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
