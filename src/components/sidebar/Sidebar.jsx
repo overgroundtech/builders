@@ -3,14 +3,12 @@ import List  from '@material-ui/core/List'
 import { ListItem, ListItemIcon } from '@material-ui/core'
 import { ListItemText } from '@material-ui/core'
 import { makeStyles} from '@material-ui/core'
-import { SubjectOutlined,AddCircleOutlined } from '@material-ui/icons'
+import { ChevronRight } from '@material-ui/icons'
 
 
 const useStyles = makeStyles(theme=>({
     sidebarContainer:{
         marginTop:theme.spacing(1),
-        display:'flex',
-
         boxShadow:"0 0 6px hsl(210 14% 80%)",
         height:'auto',
         [theme.breakpoints.down('sm')]:{
@@ -19,8 +17,9 @@ const useStyles = makeStyles(theme=>({
     },
     menuItems: {
       padding:theme.spacing(0.5),
-      marginLeft:'10px',
-
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: "inherit"
     },
 
 }))
@@ -29,30 +28,22 @@ const menuItems = [
     {
         text:"Taps",
         id:1,
-        icon:<SubjectOutlined color ='secondary'/>
     },
     {
         text:"Basins",
         id:2,
-        icon:<AddCircleOutlined color ='secondary'/>
-
     },
     {
         text:"Toilets",
         id:3,
-        icon:<AddCircleOutlined color ='secondary'/>
     },
     {
         text:"Kitchenware",
         id:4,
-        icon:<SubjectOutlined color ='secondary'/>
-
     },
     {
         text:"Bathrooms",
         id:5,
-        icon:<SubjectOutlined color ='secondary'/>
-
     }
 ]
 
@@ -68,8 +59,8 @@ function Sidebar() {
                     button
                     className={classes.menuItems}
                      >
-                         <ListItemIcon> {item.icon}</ListItemIcon>
                         <ListItemText>{item.text}</ListItemText>
+                        <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
                     </ListItem>
                 ))}
             </List>

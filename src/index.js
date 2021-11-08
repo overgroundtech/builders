@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from '@material-ui/core';
+import { theme } from './Theme/theme';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from 'apollo-upload-client';
 
@@ -19,7 +21,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
       <ApolloProvider client={client}>
-          <App />
+          <ThemeProvider theme={theme}>
+              <App />
+          </ThemeProvider>
       </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
