@@ -2,10 +2,8 @@ import React from 'react';
 import Sidebar from '../components/sidebar/Sidebar';
 import Container  from '@material-ui/core/Container';
 import Grid  from '@material-ui/core/Grid';
-import Sidebarmobile from '../components/sidebar/Siderbarmobile';
-// import { Paper } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import Carousel from '../components/Carousel/Carousel';
+import Products from '../components/Products/Products';
 
 export default function Home() {
 
@@ -19,7 +17,7 @@ export default function Home() {
                         <Sidebar/>
                     </Grid>
                     <Grid item sm={12} md={8} lg={9}>
-                        <Paper elevation={4} />
+                        <Products />
                     </Grid>
                 </Grid>
             </Container>
