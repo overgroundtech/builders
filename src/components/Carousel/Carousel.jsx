@@ -43,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 480,
         height: 'auto'
     }
-}))
+}));
 
 export default function Carousel () {
     const classes = useStyles()
 
     return(
-        <Slider  showThumbs={false} showStatus={false} >
+        <Slider autoPlay={true} showThumbs={false} showStatus={false} >
             {demoData.map((item, index) => (
                 <div key={index}>
                     <img src={item.image} alt={`slide ${index}`} className={classes.sliderImage}/>
