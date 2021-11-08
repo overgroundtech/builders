@@ -3,10 +3,11 @@ import { Grid } from '@material-ui/core'
 import {  Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {SubjectOutlined,AddCircleOutlined} from '@material-ui/icons'
+import { Card,CardMedia,CardContent, CardActionArea} from '@material-ui/core'
 
 const useSyles = makeStyles (theme=>({
     sidebarContainer:{
-        marginTop:theme.spacing(8),
+        marginTop:theme.spacing(3),
         boxShadow:theme.shadows[5],
         height:'auto',
         [theme.breakpoints.up('sm')]:{
@@ -66,9 +67,9 @@ function Sidebarmobile() {
         <Grid container className={classes.sidebarContainer} >
             {menuItems.map(item=>(
                 <Grid item  xs={4}  key={item.id}>
-                    <Paper elevation={3}>
+                    <Card elevation={3}>
             {item.text}
-                    </Paper>
+                    </Card>
                 </Grid>
             )
             )}
