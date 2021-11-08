@@ -1,60 +1,59 @@
 import React from 'react'
 import List  from '@material-ui/core/List'
-import { ListItem } from '@material-ui/core'
+import { ListItem, ListItemIcon } from '@material-ui/core'
 import { ListItemText } from '@material-ui/core'
-import { ListItemIcon } from '@material-ui/core'
 import { makeStyles} from '@material-ui/core'
 import { SubjectOutlined,AddCircleOutlined } from '@material-ui/icons'
 
 
 // const sidebarWidth = 240
 
+
 const useStyles = makeStyles(theme=>({
     sidebarContainer:{
         marginTop:theme.spacing(8.75),
-        display:'flex',
+        // display:'flex',
         boxShadow:"0 0 6px hsl(210 14% 80%)",
-        height:'100%'
+        height:'auto',
+        [theme.breakpoints.down('xs')]:{
+            display:"none"
+        }
     },
     menuitems: {
       padding:theme.spacing(0.5),
-      marginLeft:'10px'
+      marginLeft:'10px',
+      
     },
-    // menuitems: {
-    //     '&:hover': {
-    //         backgroundColor: '#ffffff',
-    //         boxShadow: 'none',
-    //       },
-    //       '&:active': {
-    //         boxShadow: 'none',
-    //         backgroundColor: 'white',
-    //       },
-    // }
+
 }))
 
 const menuItems = [
     {
         text:"Taps",
         id:1,
-        icon:<SubjectOutlined color='secondary'/>,
-        
+        icon:<SubjectOutlined color ='secondary'/>
     },
     {
         text:"Basins",
         id:2,
-        icon:<AddCircleOutlined color='secondary'/>,
+        icon:<AddCircleOutlined color ='secondary'/>
         
     },
     {
         text:"Toilets",
         id:3,
-        icon:<AddCircleOutlined color='secondary'/>,
+        icon:<AddCircleOutlined color ='secondary'/>   
+    },
+    {
+        text:"Kitchenware",
+        id:4,
+        icon:<SubjectOutlined color ='secondary'/>
         
     },
     {
         text:"Bathrooms",
         id:5,
-        icon:<AddCircleOutlined color='secondary'/>,
+        icon:<SubjectOutlined color ='secondary'/>
         
     }
 ]
@@ -65,13 +64,13 @@ function Sidebar() {
 
     return (
         <div className={classes.sidebarContainer} >
-            <List>
+            <List className = {classes.listitems}>
                 {menuItems.map(item=>(
                     <ListItem key={item.id}
                     button
                     className={classes.menuitems}
                      >
-                        <ListItemIcon>{item.icon}</ListItemIcon>
+                         <ListItemIcon> {item.icon}</ListItemIcon>
                         <ListItemText>{item.text}</ListItemText>
                     </ListItem>  
                 ))}
