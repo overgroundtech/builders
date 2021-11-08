@@ -11,8 +11,13 @@ import { SubjectOutlined,AddCircleOutlined } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme=>({
     sidebarContainer:{
+<<<<<<< HEAD
+        marginTop:theme.spacing(1),
+        display:'flex',
+=======
         marginTop:theme.spacing(3),
         // display:'flex',
+>>>>>>> sidebar
         boxShadow:"0 0 6px hsl(210 14% 80%)",
         height:'auto',
         [theme.breakpoints.down('xs')]:{
