@@ -13,57 +13,71 @@ const useStyles = makeStyles (theme=>({
         color: 'white',
         padding: theme.spacing(2),
         marginTop: theme.spacing(2),
-        verticlHeight: '100px',
+        [theme.breakpoints.down('sm')]: {
+            textAlign: 'center',
+        }
     },
-    Link: {
+    link: {
         color: 'white',
-        textDecoration: 'none',       
+        textDecoration: 'none',
+        alignItems: 'center',
     },
+    icons: {
+        marginRight: theme.spacing(1)
+    },
+    social: {
+        display: 'flex',
+        color: 'white',
+        alignItems: 'center',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'center'
+        }
+    }
 }))
 
 function Footer() {
     const classes = useStyles()
     return (
         <footer>
-            <Box className={classes.root } px={{xs:3, sm:10}} py={{xs:5, sm:10}}>
+            <Box className={classes.root} px={{xs:3, sm:10}} py={{xs:5, sm:10}}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={3}>
                         <Box borderBottom={1}> <Typography>My Account</Typography> </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'><Typography>Sign in </Typography> </Link>
+                            <Link className={classes.link} underline='none'><Typography>Sign in </Typography> </Link>
                         </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Typography>Create Account</Typography></Link>
+                            <Link className={classes.link} underline='none'> <Typography>Create Account</Typography></Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={3}>
                         <Box borderBottom={1}> <Typography>About Us</Typography> </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Typography>About us</Typography> </Link>
+                            <Link className={classes.link} underline='none'> <Typography>About us</Typography> </Link>
                         </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Typography>Categories </Typography></Link>
+                            <Link className={classes.link} underline='none'> <Typography>Categories </Typography></Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={3}>
                         <Box borderBottom={1}> <Typography>Social Links </Typography> </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <FacebookIcon/> </Link>
+                            <Link className={classes.social} underline='none'> <FacebookIcon className={classes.icons} /> Facebook</Link>
                         </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <YouTubeIcon/> </Link>
+                            <Link className={classes.social} underline='none'> <YouTubeIcon className={classes.icons} /> Youtube</Link>
                         </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Twitter/> </Link>
+                            <Link className={classes.social} underline='none'> <Twitter className={classes.icons} /> Twitter</Link>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={3}>
                         <Box borderBottom={1}><Typography>Contact Us</Typography> </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Typography>About us </Typography></Link>
+                            <Link className={classes.link} underline='none'> <Typography>About us </Typography></Link>
                         </Box>
                         <Box>
-                            <Link className={classes.Link} underline='none'> <Typography> Categories</Typography> </Link>
+                            <Link className={classes.link} underline='none'> <Typography> Categories</Typography> </Link>
                         </Box>
                     </Grid>
                 </Grid>
