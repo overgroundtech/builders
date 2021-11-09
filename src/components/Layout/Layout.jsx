@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { makeStyles } from '@material-ui/core';
+import Footer from '../footer/Footer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -14,6 +15,7 @@ export default function Layout({ children }) {
             <Navbar /> 
             <div className={classes.toolbar} />
             {children}
+            <Footer/>
         </>
      )
 }
