@@ -13,10 +13,10 @@ export default function Home() {
             <Carousel />
             <Container>
                 <Grid container spacing={2}>
-                    <Grid item xs={12}  md={4}>
+                    <Grid item xs={12}  md={2}>
                         <SidebarWrapper />
                     </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={10}>
                         <Products />
                     </Grid>
                 </Grid>
