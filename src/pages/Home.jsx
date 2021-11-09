@@ -11,12 +11,12 @@ export default function Home() {
     
         <>
             <Carousel />
-            <Container>
+            <Container maxWidth="xl">
                 <Grid container spacing={2}>
-                    <Grid item xs={12}  md={2}>
+                    <Grid item xs={12}  md={3}>
                         <SidebarWrapper />
                     </Grid>
-                    <Grid item xs={12} md={10}>
+                    <Grid item xs={12} md={9}>
                         <Products />
                     </Grid>
                 </Grid>
