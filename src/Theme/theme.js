@@ -3,6 +3,7 @@ import { red, green, blue } from '@material-ui/core/colors';
 
 export const theme = createTheme({
     palette: {
+        type: 'dark',
         primary: {
             main: blue[500],
         },
@@ -11,9 +12,6 @@ export const theme = createTheme({
         },
         error: {
             main: red[500],
-        },
-        background: {
-            default: '#fff',
         },
     },
 })

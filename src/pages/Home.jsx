@@ -3,7 +3,7 @@ import Container  from '@material-ui/core/Container';
 import Grid  from '@material-ui/core/Grid';
 import SidebarWrapper from "../components/sidebar/SidebarWrapper";
 import Carousel from '../components/Carousel/Carousel';
-import Products from '../components/Products/Products';
+import PaginateProducts from '../components/Products/PaginateProducts';
 
 export default function Home() {
 
@@ -17,7 +17,7 @@ export default function Home() {
                         <SidebarWrapper />
                     </Grid>
                     <Grid item xs={12} md={9}>
-                        <Products />
+                        <PaginateProducts />
                     </Grid>
                 </Grid>
             </Container>
