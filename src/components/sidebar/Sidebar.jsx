@@ -50,16 +50,10 @@ function Sidebar({catProds}) {
                     className={classes.menuItems}
                     onClick={() => handleFilter(item.category.id)}
                      >
-<<<<<<< HEAD
                   <img className={classes.categoryImage} src={item.category.image} />
-                        <ListItemText style={{marginLeft:'3px'}}>{item.category.name}</ListItemText>
-=======
-                  <img className={classes.categoryImage} src={item.image} alt="" />
-                        <ListItemText style={{marginLeft:'3px'}}>{item.text}</ListItemText>
->>>>>>> fe1fdaec713af164b65f5897f11b591458b40316
-                        <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
-                    </ListItem>
-
+                <ListItemText style={{marginLeft:'3px'}}>{item.text}</ListItemText>
+                <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
+            </ListItem>
                 ))}
             </List>
         </div>
