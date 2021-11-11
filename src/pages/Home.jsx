@@ -1,11 +1,28 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
 import Container  from '@material-ui/core/Container';
 import Grid  from '@material-ui/core/Grid';
 import SidebarWrapper from "../components/sidebar/SidebarWrapper";
 import Carousel from '../components/Carousel/Carousel';
 import PaginateProducts from '../components/Products/PaginateProducts';
+import { useQuery } from '@apollo/client';
+import { CATEGORY_PRODUCTS } from '../graphql/query';
+import Loader from "react-loader-spinner";
+import {Typography} from "@material-ui/core";
+import {CategoryContext} from "../Context/CategoryContext";
 
 export default function Home() {
+    const {setCatProds} = useContext(CategoryContext);
+    const {loading, error, data} = useQuery(CATEGORY_PRODUCTS);
+
+    useEffect(() => {
+        if(data){
+            setCatProds(data.categoryProducts)
+        }
+    }, [data, setCatProds]
+    );
+
+    if (loading) return <Loader type="TailSpin" color="#00BFFF" height={100} width={100} timeout={3000} />;
+    if (error) return <Typography color={error}>Something went wrong...</Typography>;
 
     return (
     

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Sidebar from "./Sidebar";
 import SidebarMobile from "./SiderbarMobile";
-
+import {CategoryContext} from "../../Context/CategoryContext";
 
 export default function SidebarWrapper() {
+    const {catProds} = useContext(CategoryContext);
+
     return (
         <>
-            <Sidebar />
-            <SidebarMobile />
+            <Sidebar catProds={catProds} />
+            <SidebarMobile catProds={catProds} />
         </>
     )
 }

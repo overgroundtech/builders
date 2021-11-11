@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import List  from '@material-ui/core/List'
 import { ListItem, ListItemIcon } from '@material-ui/core'
 import { ListItemText } from '@material-ui/core'
 import { makeStyles} from '@material-ui/core'
 import { ChevronRight } from '@material-ui/icons'
+import {ProductContext} from "../../Context/ProductContext";
 
 const useStyles = makeStyles(theme=>({
     sidebarContainer:{
@@ -30,48 +31,27 @@ const useStyles = makeStyles(theme=>({
 
 }))
 
-const menuItems = [
-    {
-        text:"Taps",
-        id:1,
-        image:'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?k=20&m=182691828&s=612x612&w=0&h=u2qwi7eGOk37hUjHT7MXR3tnePRewb2n4tWHkhkcV-Y='
-    },
-    {
-        text:"Basins",
-        id:2,
-        image:'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?k=20&m=182691828&s=612x612&w=0&h=u2qwi7eGOk37hUjHT7MXR3tnePRewb2n4tWHkhkcV-Y='
-    },
-    {
-        text:"Toilets",
-        id:3,
-        image:'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?k=20&m=182691828&s=612x612&w=0&h=u2qwi7eGOk37hUjHT7MXR3tnePRewb2n4tWHkhkcV-Y='
-    },
-    {
-        text:"Kitchenware",
-        id:4,
-        image:'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?k=20&m=182691828&s=612x612&w=0&h=u2qwi7eGOk37hUjHT7MXR3tnePRewb2n4tWHkhkcV-Y='
-    },
-    {
-        text:"Bathrooms",
-        id:5,
-        image:'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?k=20&m=182691828&s=612x612&w=0&h=u2qwi7eGOk37hUjHT7MXR3tnePRewb2n4tWHkhkcV-Y='
-    }
-]
 
-
-function Sidebar() {
+function Sidebar({catProds}) {
+    const {setProducts} = useContext(ProductContext);
     const classes = useStyles()
+
+    const handleFilter = (id) => {
+        const filtered = catProds.filter(item => item.category.id === id)[0]
+        setProducts(filtered.products)
+    }
 
     return (
         <div className={classes.sidebarContainer} >
             <List>
-                {menuItems.map(item=>(
-                    <ListItem key={item.id}
+                {catProds && catProds.map(item=>(
+                    <ListItem key={item.category.id}
                     button
                     className={classes.menuItems}
+                    onClick={() => handleFilter(item.category.id)}
                      >
-                  <img className={classes.categoryImage} src={item.image} />
-                        <ListItemText style={{marginLeft:'3px'}}>{item.text}</ListItemText>
+                  <img className={classes.categoryImage} src={item.category.image} />
+                        <ListItemText style={{marginLeft:'3px'}}>{item.category.name}</ListItemText>
                         <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
                     </ListItem>
                 ))}

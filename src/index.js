@@ -8,7 +8,7 @@ import { theme } from './Theme/theme';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from 'apollo-upload-client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import {ProductProvider} from './Context/ProductContext';
+import ContextProvider from "./Context/ContextWrapper";
 
 const link = createUploadLink({
   uri: 'https://kimita.pythonanywhere.com/graphql/'
@@ -23,9 +23,9 @@ ReactDOM.render(
   <React.StrictMode>
       <ApolloProvider client={client}>
           <ThemeProvider theme={theme}>
-              <ProductProvider>
+              <ContextProvider>
                   <App />
-              </ProductProvider>
+              </ContextProvider>
           </ThemeProvider>
       </ApolloProvider>
   </React.StrictMode>,

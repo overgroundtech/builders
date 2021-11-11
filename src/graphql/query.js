@@ -12,3 +12,23 @@ export const PRODUCTS_QUERY = gql`
         }
     }
 `
+
+export const CATEGORY_PRODUCTS = gql`
+    {
+        categoryProducts{
+            category{
+                id
+                name
+                image
+            }
+            products{
+                id
+                name
+                price
+                offer
+                discount
+                images
+            }
+        }
+    }
+`

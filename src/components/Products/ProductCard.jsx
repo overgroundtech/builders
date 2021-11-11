@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles, Card, CardMedia, CardActionArea, CardContent, Typography, CardActions, Button} from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles({
   root: {
@@ -21,12 +23,13 @@ const useStyles = makeStyles({
 });
 
 export default function ProductCard({product}) {
-    const classes = useStyles()
+    const classes = useStyles();
+    const history = useHistory();
 
     return (
         <>
             <Card className={classes.root}>
-                <CardActionArea>
+                <CardActionArea onClick={() => history.push(`/products/${product.id}`) }>
                     <CardMedia
                         className={classes.media}
                         image={product.images[0]? product.images[0] : 'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?b=1&k=20&m=182691828&s=170667a&w=0&h=gZj86NU5-6ocvWuFUeh8rLJwOOsaK7Y-vhwOeSWz4U4='}
