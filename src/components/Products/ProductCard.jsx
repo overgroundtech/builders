@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Card, CardMedia, CardActionArea, CardContent, Typography, CardActions, Button, Badge } from '@material-ui/core';
+import { makeStyles, Card, CardMedia, CardActionArea, CardContent, Typography, CardActions, Button} from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +29,7 @@ export default function ProductCard({product}) {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={product.images[0]}
+                        image={product.images[0]? product.images[0] : 'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?b=1&k=20&m=182691828&s=170667a&w=0&h=gZj86NU5-6ocvWuFUeh8rLJwOOsaK7Y-vhwOeSWz4U4='}
                         title={product.name}
                     />
                     <CardContent>
