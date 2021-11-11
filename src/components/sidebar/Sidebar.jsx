@@ -70,11 +70,10 @@ function Sidebar() {
                     button
                     className={classes.menuItems}
                      >
-                  <img className={classes.categoryImage} src={item.image} alt="" />
+                  <img className={classes.categoryImage} src={item.image} />
                         <ListItemText style={{marginLeft:'3px'}}>{item.text}</ListItemText>
                         <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
                     </ListItem>
-
                 ))}
             </List>
         </div>
