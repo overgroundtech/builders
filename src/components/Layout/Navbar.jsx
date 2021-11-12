@@ -14,11 +14,14 @@ import {
      AddShoppingCart,
      Cancel
 } from '@material-ui/icons';
+import {useHistory} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles( theme => ({
     logo: {
-        marginRight: theme.spacing(1)
+        marginRight: theme.spacing(1),
+        height: 80,
+        maxWidth: 160
     },
     toolbar: {
         display: 'flex',
@@ -76,13 +79,13 @@ const useStyles = makeStyles( theme => ({
 export default function Navbar () {
     const [show, setShow] = useState(false)
     const classes = useStyles(show);
-
+    const history = useHistory();
     return (
         <>
             <AppBar elevation={1} color="inherit">
                 <Toolbar className={classes.toolbar}>
-                    <Typography variant="h5" component="p" className={classes.logo}>
-                        logo
+                    <Typography className={classes.logo} onClick={() => history.push('/')}>
+                        <img src={'/logo.jpeg'} alt={'logo'} className={classes.logo} />
                     </Typography>
                     <div className={classes.search}>
                         <Search className={classes.searchIcon} />

@@ -116,7 +116,6 @@ export default function ProductDetail () {
 
                 </Grid>
             </Container>
-            <h1> Product Details</h1>
         </>
     )
 }

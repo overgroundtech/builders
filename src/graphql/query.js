@@ -9,6 +9,7 @@ export const PRODUCTS_QUERY = gql`
             offer
             discount
             images
+            categoryId
         }
     }
 `
@@ -28,6 +29,7 @@ export const CATEGORY_PRODUCTS = gql`
                 offer
                 discount
                 images
+                categoryId
             }
         }
     }
