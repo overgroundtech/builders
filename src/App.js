@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
-import ProductDetail from './pages/ProductDetail'
-
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -19,6 +19,9 @@ function App() {
           </Route>
           <Route exact path='/products/:id'>
             <ProductDetail />
+          </Route>
+          <Route exact path='/Cart'>
+            <Cart />
           </Route>
         </Switch>
       </Layout>

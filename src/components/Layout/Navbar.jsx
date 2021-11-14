@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     makeStyles,
     AppBar,
@@ -16,12 +16,14 @@ import {
 } from '@material-ui/icons';
 import {useHistory} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
+import {CartContext} from '../../Context/CartContext';
+
 
 const useStyles = makeStyles( theme => ({
     logo: {
         marginRight: theme.spacing(1),
-        height: 80,
-        maxWidth: 160
+        height: 'inherit',
+        maxWidth: 80
     },
     toolbar: {
         display: 'flex',
@@ -77,7 +79,8 @@ const useStyles = makeStyles( theme => ({
 }));
 
 export default function Navbar () {
-    const [show, setShow] = useState(false)
+    const {cart} = useContext(CartContext);
+    const [show, setShow] = useState(false);
     const classes = useStyles(show);
     const history = useHistory();
     return (
@@ -96,7 +99,7 @@ export default function Navbar () {
                         <IconButton onClick={() => setShow(true)} >
                             <Search className={classes.cancel} />
                         </IconButton>
-                        <Badge badgeContent={2} color='secondary' className={classes.badge}>
+                        <Badge badgeContent={cart? cart.count : 0} color='secondary' className={classes.badge}>
                             <AddShoppingCart />
                         </Badge> 
                         <Avatar className={classes.badge}> A</Avatar>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles, Card, CardMedia, CardActionArea, CardContent, Typography, CardActions, Button} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-
+import {useMutation} from '@apollo/client';
+import {CartContext} from '../../Context/CartContext';
+import {ADD_ITEM} from '../../graphql/mutation';
 
 const useStyles = makeStyles({
   root: {
@@ -23,6 +25,8 @@ const useStyles = makeStyles({
 });
 
 export default function ProductCard({product}) {
+    const {setCart} = useContext(CartContext);
+    const [addItem] = useMutation(ADD_ITEM);
     const classes = useStyles();
     const history = useHistory();
 
@@ -53,7 +57,24 @@ export default function ProductCard({product}) {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button className={classes.btn} variant="outlined" color="secondary">
+                    <Button
+                        className={classes.btn}
+                        variant="outlined"
+                        color="secondary"
+                        onClick={ async () => {
+                            try{
+                                const {data} =await addItem({
+                                    variables: {
+                                        cartId: new String(localStorage.getItem('cartId')),
+                                        productId: product.id,
+                                        quantity: 1
+                                    }
+                                })
+                                setCart(data.addItem.cart)
+                            }catch(err){
+                                console.log(err)
+                        } }}
+                    >
                         Buy Now
                     </Button>
                 </CardActions>

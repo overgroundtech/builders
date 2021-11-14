@@ -9,20 +9,23 @@ import { CATEGORY_PRODUCTS } from '../graphql/query';
 import Loader from "react-loader-spinner";
 import {Typography} from "@material-ui/core";
 import {CategoryContext} from "../Context/CategoryContext";
+import {CartContext} from "../Context/CartContext";
 
 export default function Home() {
     const {setCatProds} = useContext(CategoryContext);
-    const {loading, error, data} = useQuery(CATEGORY_PRODUCTS);
+    const {setCart} = useContext(CartContext);
+    const {loading, error, data} = useQuery(CATEGORY_PRODUCTS, {variables: {cartId: new String(localStorage.getItem('cartId'))}});
 
     useEffect(() => {
         if(data){
             setCatProds(data.categoryProducts)
+            setCart(data.cart)
         }
-    }, [data, setCatProds]
+    }, [data, setCatProds, setCart]
     );
 
-    if (loading) return <Loader type="TailSpin" color="#00BFFF" height={100} width={100} timeout={3000} />;
-    if (error) return <Typography color={error}>Something went wrong...</Typography>;
+    if (loading) return <Loader type="TailSpin" color="#00BFFF" height={100} width={100} timeout={10000} />;
+    if (error) return <Typography>Something went wrong...</Typography>;
 
     return (
     
