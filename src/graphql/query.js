@@ -32,3 +32,14 @@ export const CATEGORY_PRODUCTS = gql`
         }
     }
 `
+export const PRODUCT = gql`
+query($productId:Int!) {
+    product(productId:$productId) {
+      id
+      name
+      price
+      description
+      images
+    }  
+  }
+`
