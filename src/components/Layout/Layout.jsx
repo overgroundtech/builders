@@ -1,19 +1,21 @@
 import React from 'react';
 import Navbar from './Navbar';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Toolbar } from '@material-ui/core';
 import Footer from '../footer/Footer';
 
 
 const useStyles = makeStyles(theme => ({
-    toolbar: theme.mixins.toolbar
+    toolbar: {
+        marginBottom: theme.spacing(3)
+    }
 }));
 
 export default function Layout({ children }) {
     const classes = useStyles()
     return (
         <>
-            <Navbar /> 
-            <div className={classes.toolbar} />
+            <Navbar />
+           <Toolbar className={classes.toolbar} />
             {children}
             <Footer/>
         </>

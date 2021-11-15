@@ -255,7 +255,7 @@ function ProductDetail({match}) {
                         </Grid>
                     </Grid>
                 </Grid>   
-        </Container>
+        </Container>             
         </>
     )
 }

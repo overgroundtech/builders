@@ -27,15 +27,18 @@ const useStyles = makeStyles(theme=>({
         objectFit:"contain",
         overflow:"hidden",
         // marginLeft:theme.spacing(1)
+    },
+    active: {
+        background: '#f4f4f4'
     }
 
 }))
 
 
 function Sidebar({catProds}) {
-    const {setProducts} = useContext(ProductContext);
+    const {products, setProducts} = useContext(ProductContext);
     const classes = useStyles()
-
+    // TODO ADD THE ALL CATEGORY
     const handleFilter = (id) => {
         const filtered = catProds.filter(item => item.category.id === id)[0]
         setProducts(filtered.products)
@@ -48,12 +51,14 @@ function Sidebar({catProds}) {
                     <ListItem key={item.category.id}
                     button
                     className={classes.menuItems}
+                    className={products[0] && (products[0].categoryId === item.category.id? classes.active : '')}
                     onClick={() => handleFilter(item.category.id)}
+
                      >
-                  <img className={classes.categoryImage} src={item.category.image} />
-                <ListItemText style={{marginLeft:'3px'}}>{item.text}</ListItemText>
-                <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
-            </ListItem>
+                        <img className={classes.categoryImage} src={item.category.image} />
+                        <ListItemText style={{marginLeft:'3px'}}>{item.category.name} </ListItemText>
+                        <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
+                    </ListItem>
                 ))}
             </List>
         </div>

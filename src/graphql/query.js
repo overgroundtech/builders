@@ -9,28 +9,44 @@ export const PRODUCTS_QUERY = gql`
             offer
             discount
             images
+            categoryId
         }
     }
 `
 
 export const CATEGORY_PRODUCTS = gql`
-    {
-        categoryProducts{
-            category{
-                id
-                name
-                image
-            }
-            products{
+query($cartId: String!){
+    categoryProducts{
+        category{
+            id
+            name
+            image
+        }
+        products{
+            id
+            name
+            price
+            offer
+            discount
+            images
+            categoryId
+        }
+    }
+    cart(cartId: $cartId){
+        items{
+            product{
                 id
                 name
                 price
-                offer
-                discount
-                images
             }
+            unitPrice
+            quantity
+            total
         }
+        summary
+        count
     }
+<<<<<<< HEAD
 `
 export const PRODUCT = gql`
 query($productId:Int!) {
@@ -43,3 +59,7 @@ query($productId:Int!) {
     }  
   }
 `
+=======
+  }
+`
+>>>>>>> 2fa0acdaabbff4050f7a3701bc47d101f512c388

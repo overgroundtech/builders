@@ -85,10 +85,7 @@ export default function PaginateProducts() {
 
     return (
         <Container variant={"xs"} className={classes.root} >
-            <Typography variant="body2" color="textSecondary">
-                All
-            </Typography>
-            <hr/>
+
             <Products className={classes.products} products={currentItems} />
             <ReactPaginate
                 breakLabel={'...'}
