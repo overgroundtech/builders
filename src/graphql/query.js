@@ -46,7 +46,7 @@ query($cartId: String!){
         summary
         count
     }
-<<<<<<< HEAD
+  }
 `
 export const PRODUCT = gql`
 query($productId:Int!) {
@@ -56,10 +56,15 @@ query($productId:Int!) {
       price
       description
       images
-    }  
+    } 
+    similarProducts (productId:$productId){
+        id
+        name
+        price
+        offer
+        discount
+        images
+        categoryId
+    } 
   }
 `
-=======
-  }
-`
->>>>>>> 2fa0acdaabbff4050f7a3701bc47d101f512c388

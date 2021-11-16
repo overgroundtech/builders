@@ -17,16 +17,10 @@ function App() {
           <Route exact path='/'>
             <Home />
           </Route>
-<<<<<<< HEAD
           <Route exact path='/products/:id' component={ProductDetail} />
-=======
-          <Route exact path='/products/:id'>
-            <ProductDetail />
-          </Route>
           <Route exact path='/Cart'>
             <Cart />
           </Route>
->>>>>>> 2fa0acdaabbff4050f7a3701bc47d101f512c388
         </Switch>
       </Layout>
     </Router>

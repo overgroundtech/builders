@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useContext} from 'react'
 import { Container, Grid, InputBase, ListItemText, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import { List,ListItem } from '@material-ui/core'
@@ -14,6 +14,12 @@ import { Carousel } from 'react-responsive-carousel';
 import { useQuery } from '@apollo/client'
 import {PRODUCT} from '../graphql/query'
 import { ButtonGroup } from '@material-ui/core'
+import {ADD_ITEM} from '../graphql/mutation'
+import {useMutation} from '@apollo/client';
+import { CartContext } from '../Context/CartContext'
+import Products from '../components/Products/Products'
+
+
 
 
  
@@ -142,8 +148,6 @@ const useStyles = makeStyles( theme => ({
             height:'30px',
         },
         InputBaseCont:{
-            display:'flex',
-            textAlign:'center',
             backgroundColor:'white',
             width:'20px',
             height:'30px',
@@ -159,12 +163,18 @@ const useStyles = makeStyles( theme => ({
 
 function ProductDetail({match}) {
     const classes = useStyles()
-  
+    const [quantity, setQuantity] = useState(0)
+    const [addtoCart] = useMutation(ADD_ITEM)
+    const {setCart} = useContext(CartContext);
 
-    const {loading, error, data} = useQuery(PRODUCT, {variables:{productId:parseInt(match.params.id)}})
+
+   const {loading, error, data} = useQuery(PRODUCT, {variables:{productId:parseInt(match.params.id)}})
     if (loading) return <p>Loading...</p>
     if (error) return `Error! ${error.message}`
-    // console.log(data)
+
+    // console.log(quantity)
+    
+    
     
     return (
         <>
@@ -184,24 +194,44 @@ function ProductDetail({match}) {
                     <Typography variant="h6">${data.product.price}</Typography>
                     <List>
                         <ListItem>
-                            <Typography variant="body1">Product Description
+                            <Typography variant="body1">Product Description </Typography>
                             <ListItemText >shape -rectangular</ListItemText>
                             <ListItemText >Material- Ceramic</ListItemText>
-                            <ListItemText >Color- White Gloss</ListItemText>
-                            </Typography>
+
                             </ListItem>
                     </List>
                 <Grid item xs={12} sm={6} className={classes.quantityAndAddContainer}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}>
-                    <Button className={classes.buttonSelf}>-</Button>
-                    <InputBase className={classes.InputBaseCont}/>
-                    <Button className={classes.buttonSelf}>+</Button>
+                    <Button onClick={()=>{ if (quantity <= 1 ){
+                        setQuantity(1) 
+                    }
+                    else {
+                        setQuantity(quantity-1)
+                    }
+                     } } className={classes.buttonSelf}>-</Button>
+                    <InputBase type='number' onChange={(e)=>setQuantity(parseInt(e.target.value))} className={classes.InputBaseCont} value={quantity} />
+                    <Button onClick={()=>setQuantity(quantity+1)} className={classes.buttonSelf}>+</Button>
                     </ButtonGroup>
                 </Grid>
-                <Button className={classes.addtoCart} variant="outlined" color="secondary" size='small'>Add to Cart</Button>
+                <Button
+                onClick ={ async () => {
+                    try {
+                        const {data: cartData} = await addtoCart({
+                            variables: {
+                                cartId: new String(localStorage.getItem('cartId')),
+                                productId:data.product.id,
+                                quantity:quantity
+                            }
+                        })
+                        setCart(cartData.addItem.cart)
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }}
+                 className={classes.addtoCart} variant="outlined" color="secondary" size='small'>Add to Cart</Button>
                 <Grid item xs={12} sm ={6} className={classes.categoryLinks} >
                     <Typography>Categories:</Typography>
-                    <Link >Taps</Link>,
+                    <Link>Taps</Link>,
                     <Link>Basins</Link>
                 </Grid>
                 <Grid item xs ={12} sm={6} className={classes.socialLink}>
@@ -219,7 +249,7 @@ function ProductDetail({match}) {
                     <div className={classes.facebookPluginBox}>
                         <Typography variant="h6">Like us on Facebook</Typography>
                         <div className={classes.facebookLikeImage}>
-                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="100%" height="100%" style={{border: 'none',overflow: 'hidden'}} scrolling="no" frameBorder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                        {/* <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="100%" height="100%" style={{border: 'none',overflow: 'hidden'}} scrolling="no" frameBorder="0" allowTransparency="true" allow="encrypted-media"></iframe> */}
                         </div>
                         </div>
                         <Grid>
@@ -249,12 +279,9 @@ function ProductDetail({match}) {
                             </Grid>
                     </Grid>
                     </Grid>
-                    <Grid container spacing={3} className={classes.root2}>
-                        <Grid item xs={12} sm={6}>
-                            
-                        </Grid>
-                    </Grid>
-                </Grid>   
+                </Grid>
+                <Typography>Related Products</Typography>
+                <Products products={data.similarProducts.slice(0,4)} />  
         </Container>             
         </>
     )
