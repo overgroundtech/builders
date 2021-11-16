@@ -14,7 +14,7 @@ export default function Products({products}) {
   return (
       <Grid container spacing={2} className={classes.products} >
           {products && products.map(product => (
-              <Grid key={product.id} item xs={12} sm={4} md={3}>
+              <Grid key={product.id} item xs={6} sm={4} md={3}>
                   <ProductCard product={product}/>
               </Grid>
           ))}
