@@ -10,6 +10,7 @@ mutation($cartId: String! $productId: Int! $quantity: Int!){
                     id
                     name
                     price
+                    images
                 }
                 unitPrice
                 quantity
@@ -20,4 +21,26 @@ mutation($cartId: String! $productId: Int! $quantity: Int!){
         }
     }
 }
+`
+export const REMOVE_ITEM = gql`
+mutation($cartId: String! $productId: Int!){
+    removeItem(cartId: $cartId productId: $productId){
+        success
+        cart{
+            items{
+                product{
+                    id
+                    name
+                    price
+                    images
+                }
+                unitPrice
+                quantity
+                total
+            }
+            summary
+            count
+        }
+    }
+  }
 `
