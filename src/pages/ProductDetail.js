@@ -156,6 +156,15 @@ const useStyles = makeStyles( theme => ({
             display:'flex',
             height:'30px',
             width:'70%',
+        },
+        relatedProductsCont:{
+            // textAlign:'center'
+        },
+        relatedProdsText:{
+            display:'flex',
+            justifyContent:'center',
+            marginTop:'5px',
+            fontWeight:'bold'
         }
 }))
 
@@ -192,14 +201,9 @@ function ProductDetail({match}) {
                 <Grid item xs={12} sm={4} className={classes.productDescContainer}>
                     <Typography variant="h5">{data.product.name}</Typography>
                     <Typography variant="h6">${data.product.price}</Typography>
-                    <List>
-                        <ListItem>
                             <Typography variant="body1">Product Description </Typography>
-                            <ListItemText >shape -rectangular</ListItemText>
-                            <ListItemText >Material- Ceramic</ListItemText>
+                            <Typography>{data.product.description}</Typography>
 
-                            </ListItem>
-                    </List>
                 <Grid item xs={12} sm={6} className={classes.quantityAndAddContainer}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}>
                     <Button onClick={()=>{ if (quantity <= 1 ){
@@ -280,8 +284,10 @@ function ProductDetail({match}) {
                     </Grid>
                     </Grid>
                 </Grid>
-                <Typography>Related Products</Typography>
-                <Products products={data.similarProducts.slice(0,4)} />  
+               <div className={classes.relatedProductsCont}> 
+                <Typography className={classes.relatedProdsText}>Related Products</Typography>
+               <Products products={data.similarProducts.slice(0,4)} />  
+               </div>
         </Container>             
         </>
     )
