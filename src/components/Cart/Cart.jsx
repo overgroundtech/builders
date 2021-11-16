@@ -41,8 +41,31 @@ export default function CartContainer({cart}){
                     </Table>
                 </TableContainer>
             </Grid>
-            <Grid item xs={12} md={4} component={Paper}>
-                total
+            <Grid item xs={12} md={4}>
+                <TableContainer component={Paper} >
+                    <Typography variant="h5">Cart Total </Typography>
+                    <Table>
+                    <TableBody>
+                    <TableRow>
+                            <TableCell component="th">
+                                No. of Items
+                            </TableCell>
+                            <TableCell>
+                                {cart.count}
+                            </TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                            <TableCell component="th">
+                                Total
+                            </TableCell>
+                            <TableCell>
+                                {cart.summary} ksh
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                    </Table>
+                </TableContainer>
             </Grid>
         </Grid>
     )
