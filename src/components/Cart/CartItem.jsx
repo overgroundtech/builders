@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
-import {makeStyles, TableCell, TableRow, IconButton, ButtonGroup, Typography} from "@material-ui/core";
-import { DeleteForeverOutlined, AddOutlined,  Remove} from '@material-ui/icons';
+import {makeStyles, TableCell, TableRow, TextField, IconButton} from "@material-ui/core";
+import { DeleteForeverOutlined, CheckCircle, FlashOffRounded } from '@material-ui/icons';
 import {useMutation} from '@apollo/client';
 import {CartContext} from '../../Context/CartContext';
-import {REMOVE_ITEM} from '../../graphql/mutation';
+import {REMOVE_ITEM, UPDATE_ITEM} from '../../graphql/mutation';
 
 const useStyles = makeStyles(theme => ({
     cartImage: {
@@ -11,19 +11,21 @@ const useStyles = makeStyles(theme => ({
         height: 'auto'
     },
     quantity:{
-        display: 'flex',
         alignItems: 'center'
     }, 
-    text: {
+    input: {
         marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1)
+        marginRight: theme.spacing(1),
+        width: theme.spacing(10),
     }
 }));
 
 export default function CartItem({item}) {
     const {setCart} = useContext(CartContext);
-    const [quantity, setQuantity] = useState()
+    const [quantity, setQuantity] = useState(item.quantity)
+    const [check, setCheck] = useState(false);
     const [removeItem] = useMutation(REMOVE_ITEM);
+    const [updateItem] = useMutation(UPDATE_ITEM);
     const classes = useStyles();
     return (
         <TableRow key={item.product.id}>
@@ -34,13 +36,30 @@ export default function CartItem({item}) {
             <TableCell align="left">{item.unitPrice}</TableCell>
             <TableCell align="left">
                 <div className={classes.quantity}>
-                        <IconButton size="small" color="secondary" edge="end" >
-                            <Remove/>
-                        </IconButton>
-                        <Typography className={classes.text} > {item.quantity} </Typography>
-                        <IconButton size="small" color="secondary" edge="start" >
-                            <AddOutlined />
-                        </IconButton>
+                    <TextField type="number" className={classes.input} variant="outlined" size="small" onChange={(e)=> {
+                        setCheck(true);
+                        if(e.target.value <= 0){
+                            setQuantity(1)
+                        }else{
+                            setQuantity(e.target.value);
+                        }
+                    }} value={quantity} />
+                    {check?
+                    <IconButton size="small" color="secondary" onClick={
+                        async () => {
+                            const {data} = await updateItem({
+                                variables:{
+                                    cartId: new String(localStorage.getItem('cartId')),
+                                    productId: item.product.id,
+                                    quantity: parseInt(quantity)
+                                }
+                            });
+                            setCheck(false);
+                            setCart(data.updateItem.cart);
+                        }
+                    }>
+                        <CheckCircle />
+                    </IconButton>: null}
                 </div>
             </TableCell>
             <TableCell align="left">{item.total}</TableCell>

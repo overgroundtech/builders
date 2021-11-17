@@ -9,7 +9,8 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Typography
+    Typography,
+    Button
 } from '@material-ui/core';
 import CartItem from "./CartItem";
 
@@ -44,23 +45,28 @@ export default function CartContainer({cart}){
             <Grid item xs={12} md={4}>
                 <TableContainer component={Paper} >
                     <Typography variant="h5">Cart Total </Typography>
-                    <Table>
-                    <TableBody>
-                    <TableRow>
-                            <TableCell component="th">
+                    <Table component="div">
+                    <TableBody component="div">
+                    <TableRow component="div">
+                            <TableCell component="div">
                                 No. of Items
                             </TableCell>
-                            <TableCell>
+                            <TableCell component="div">
                                 {cart.count}
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
-                            <TableCell component="th">
+                        <TableRow component="div">
+                            <TableCell component="div">
                                 Total
-                            </TableCell>
-                            <TableCell>
+                            </TableCell >
+                            <TableCell component="div">
                                 {cart.summary} ksh
+                            </TableCell>
+                        </TableRow>
+                        <TableRow component="div">
+                            <TableCell component="div">
+                                <Button variant="contained" color="secondary"> Checkout </Button>
                             </TableCell>
                         </TableRow>
                     </TableBody>
