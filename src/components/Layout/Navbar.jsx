@@ -88,7 +88,7 @@ export default function Navbar () {
             <AppBar elevation={1} color="inherit">
                 <Toolbar className={classes.toolbar}>
                     <Typography className={classes.logo} onClick={() => history.push('/')}>
-                        <img src={'/logo.jpeg'} alt={'logo'} className={classes.logo} />
+                        <img src={'/assets/logo.jpeg'} alt={'logo'} className={classes.logo} />
                     </Typography>
                     <div className={classes.search}>
                         <Search className={classes.searchIcon} />

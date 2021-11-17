@@ -2,7 +2,7 @@ import {gql} from '@apollo/client';
 
 export const ADD_ITEM = gql`
 mutation($cartId: String! $productId: Int! $quantity: Int!){
-    updateItem(cartId: $cartId productId: $productId quantity: $quantity){
+    addItem(cartId: $cartId productId: $productId quantity: $quantity){
       success
           cart{
           items{
@@ -49,7 +49,7 @@ export const UPDATE_ITEM = gql`
 mutation($cartId: String! $productId: Int! $quantity: Int!){
     updateItem(cartId: $cartId productId: $productId quantity: $quantity){
       success
-          cart{
+          cart{ 
           items{
               product{
                   id
