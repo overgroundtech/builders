@@ -14,6 +14,27 @@ export const PRODUCTS_QUERY = gql`
     }
 `
 
+export const CART_QUERY = gql`
+query($cartId: String!){
+    cart(cartId: $cartId){
+        items{
+            product{
+                id
+                name
+                price
+                images
+            }
+            unitPrice
+            quantity
+            total
+        }
+        summary
+        count
+    }
+}
+`
+
+
 export const CATEGORY_PRODUCTS = gql`
 query($cartId: String!){
     categoryProducts{
@@ -38,6 +59,7 @@ query($cartId: String!){
                 id
                 name
                 price
+                images
             }
             unitPrice
             quantity

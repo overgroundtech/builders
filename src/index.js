@@ -11,11 +11,11 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import ContextProvider from "./Context/ContextWrapper";
 
 const link = createUploadLink({
-  uri: 'https://kimita.pythonanywhere.com/graphql/'
+  uri: 'http://localhost:8000/graphql/'
 });
 
 const client = new ApolloClient({
-    link,
+    link, 
     cache: new InMemoryCache()
 });
 

@@ -96,13 +96,15 @@ export default function Navbar () {
                         <Cancel className={classes.cancel} onClick={() => {setShow(false)}} />
                     </div>
                     <div className={classes.badges}>
-                        <IconButton onClick={() => setShow(true)} >
-                            <Search className={classes.cancel} />
+                        <IconButton onClick={() => setShow(true)}  className={classes.cancel}  >
+                            <Search/>
                         </IconButton>
-                        <Badge badgeContent={cart? cart.count : 0} color='secondary' className={classes.badge}>
-                            <AddShoppingCart />
-                        </Badge> 
-                        <Avatar className={classes.badge}> A</Avatar>
+                        
+                            <Badge badgeContent={cart? cart.count : 0} color='secondary' className={classes.badge}>
+                            <AddShoppingCart onClick={() => history.push('/cart')} />
+                            </Badge> 
+                        
+                        <Avatar className={classes.badge} > A</Avatar>
                     </div>
                 </Toolbar>
             </AppBar>

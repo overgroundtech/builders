@@ -1,7 +1,6 @@
 import React,{useState, useContext} from 'react'
 import { Container, Grid, InputBase, ListItemText, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
-import { List,ListItem } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,7 +12,6 @@ import TwitterIcon  from '@material-ui/icons/Twitter'
 import { Carousel } from 'react-responsive-carousel';
 import { useQuery } from '@apollo/client'
 import {PRODUCT} from '../graphql/query'
-import { ButtonGroup } from '@material-ui/core'
 import {ADD_ITEM} from '../graphql/mutation'
 import {useMutation} from '@apollo/client';
 import { CartContext } from '../Context/CartContext'
@@ -83,7 +81,10 @@ const useStyles = makeStyles( theme => ({
         },
         quantityAndAddContainer : {
             display : 'flex',
-            justifyContent : 'space-between',
+            justifyContent: 'space-between',
+            maxWidth: theme.spacing(30),
+            alignItems: 'center',
+            margin: theme.spacing(1)
         },
         textField : {
             // backgroundColor:'red',
@@ -152,13 +153,7 @@ const useStyles = makeStyles( theme => ({
             marginTop:'10px',
         },
         InputBaseCont:{
-            display:'flex',
-            alignItems:'start',
-            marginTop:'10px',
-            backgroundColor:'white',
-            width:'30px',
-            height:'10px',
-        },
+            width: theme.spacing(10)},
         addtoCart:{
             display:'flex',
             height:'30px',
@@ -210,26 +205,17 @@ function ProductDetail({match}) {
                     <Typography variant="h6">${data.product.price}</Typography>
                             <Typography variant="body1">Product Description </Typography>
                             <Typography>{data.product.description}</Typography>
-
-                <Grid item xs={12} sm={6} className={classes.quantityAndAddContainer}>
-                    {/* <div style={{display:'flex', alignItems:'center'}}>
-                        <button >+</button>
-                        <input style={{height:'20px',width:'20px'}} type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))}/>
-                        <button>-</button>
-                    </div> */}
-                    
-                {/* <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}> */}
-                    <Button onClick={()=>{ if (quantity <= 1 ){
+                    <div className={classes.quantityAndAddContainer}>
+                    <Button size="small" variant="outlined" color="secondary" onClick={()=>{ if (quantity <= 1 ){
                         setQuantity(1) 
                     }
                     else {
                         setQuantity(quantity-1)
                     }
                      } } className={classes.buttonSelf}>-</Button>
-                    <InputBase type='number' onChange={(e)=>setQuantity(parseInt(e.target.value))} className={classes.InputBaseCont} value={quantity} />
-                    <Button onClick={()=>setQuantity(quantity+1)} className={classes.buttonSelf}>+</Button>
-                    {/* </ButtonGroup> */}
-                </Grid>
+                    <TextField  type='number' onChange={(e)=>setQuantity(parseInt(e.target.value))} variant="outlined" size="small" className={classes.InputBaseCont} value={quantity} />
+                    <Button onClick={()=>setQuantity(quantity+1)} size="small" variant="outlined" color="secondary" className={classes.buttonSelf}>+</Button>
+                    </div>
                 <Button
                 // variant="outlined"
                 onClick ={ async () => {
