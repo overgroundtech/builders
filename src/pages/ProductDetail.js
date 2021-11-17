@@ -83,6 +83,7 @@ const useStyles = makeStyles( theme => ({
         },
         quantityAndAddContainer : {
             display : 'flex',
+            justifyContent : 'space-between',
         },
         textField : {
             // backgroundColor:'red',
@@ -127,6 +128,7 @@ const useStyles = makeStyles( theme => ({
             display:'flex',
             justifyContent:'center',
             marginBottom:'5px',
+            cursor:'pointer'
         },
         link:{
             backgroundColor:'#FF8C00',
@@ -141,16 +143,21 @@ const useStyles = makeStyles( theme => ({
         },
         butonsContainer:{
             display:'flex',
+            // marginLeft:'auto',
         },
         buttonSelf:{
-            // backgroundColor:'#FF8C00',
+            // backgroundColor:'orange',
             width:'20px',
             height:'30px',
+            marginTop:'10px',
         },
         InputBaseCont:{
+            display:'flex',
+            alignItems:'start',
+            marginTop:'10px',
             backgroundColor:'white',
-            width:'20px',
-            height:'30px',
+            width:'30px',
+            height:'10px',
         },
         addtoCart:{
             display:'flex',
@@ -205,7 +212,13 @@ function ProductDetail({match}) {
                             <Typography>{data.product.description}</Typography>
 
                 <Grid item xs={12} sm={6} className={classes.quantityAndAddContainer}>
-                <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}>
+                    {/* <div style={{display:'flex', alignItems:'center'}}>
+                        <button >+</button>
+                        <input style={{height:'20px',width:'20px'}} type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))}/>
+                        <button>-</button>
+                    </div> */}
+                    
+                {/* <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}> */}
                     <Button onClick={()=>{ if (quantity <= 1 ){
                         setQuantity(1) 
                     }
@@ -215,9 +228,10 @@ function ProductDetail({match}) {
                      } } className={classes.buttonSelf}>-</Button>
                     <InputBase type='number' onChange={(e)=>setQuantity(parseInt(e.target.value))} className={classes.InputBaseCont} value={quantity} />
                     <Button onClick={()=>setQuantity(quantity+1)} className={classes.buttonSelf}>+</Button>
-                    </ButtonGroup>
+                    {/* </ButtonGroup> */}
                 </Grid>
                 <Button
+                // variant="outlined"
                 onClick ={ async () => {
                     try {
                         const {data: cartData} = await addtoCart({
@@ -245,11 +259,11 @@ function ProductDetail({match}) {
                 </Grid>
                 </Grid>
                 <Grid item xs={12} sm={4} className={classes.searchMediaDelivery}>
-                    <Typography variant="h5">Search Any Product Here</Typography>
+                    {/* <Typography variant="h5">Search Any Product Here</Typography>
                     <div className={classes.search}>
                     <TextField id="outlined-basic" label="Search for products" variant="outlined" className={classes.textField} />
                     <Button variant="contained" color="primary"><SearchIcon/></Button>
-                    </div>
+                    </div> */}
                     <div className={classes.facebookPluginBox}>
                         <Typography variant="h6">Like us on Facebook</Typography>
                         <div className={classes.facebookLikeImage}>
