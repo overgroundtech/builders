@@ -70,3 +70,23 @@ query($cartId: String!){
     }
   }
 `
+export const PRODUCT = gql`
+query($productId:Int!) {
+    product(productId:$productId) {
+      id
+      name
+      price
+      description
+      images
+    } 
+    similarProducts (productId:$productId){
+        id
+        name
+        price
+        offer
+        discount
+        images
+        categoryId
+    } 
+  }
+`

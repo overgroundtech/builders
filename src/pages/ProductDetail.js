@@ -1,121 +1,296 @@
-import React,{useContext} from 'react';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import { Divider } from '@material-ui/core';
-import { List,ListItem } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-// import ProductCard from '../components/Products/ProductCard';
-// import { ProductContext } from '../Context/ProductContext';
+import React,{useState, useContext} from 'react'
+import { Container, Grid, InputBase, ListItemText, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
+import { List,ListItem } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import back from '../../src/images/back.png'
+import { Link } from '@material-ui/core'
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/YouTube';
+import TwitterIcon  from '@material-ui/icons/Twitter'
+import { Carousel } from 'react-responsive-carousel';
+import { useQuery } from '@apollo/client'
+import {PRODUCT} from '../graphql/query'
+import { ButtonGroup } from '@material-ui/core'
+import {ADD_ITEM} from '../graphql/mutation'
+import {useMutation} from '@apollo/client';
+import { CartContext } from '../Context/CartContext'
+import Products from '../components/Products/Products'
 
 
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        // backgroundColor:theme.palette.background,
-        backgroundColor:'#f5f5f5',
-        [theme.breakpoints.up('sm')]: {
-            display: 'flex',
-            width: '100%',
-            textAlign: 'center',
-            // justifyContent: 'space-between',
-            marginTop:theme.spacing(2),
+
+ 
+
+const useStyles = makeStyles( theme => ({
+    root : {
+        backgroundColor : 'white',
+        display : 'flex',
+        marginTop : theme.spacing(1),
+    },
+    root2:{
+        display : 'flex',
+        marginTop : theme.spacing(1),
+        marginBottom : theme.spacing(1),
+        justifyContent : 'center',
+    },
+    imageContainer : {
+        display : 'flex',
+        flexDirection : 'column',
+    },
+    productDetailImage : { 
+        width : '100%',
+        '&:hover' : {
+            cursor : 'pointer',           
         }
     },
-    productDetailsRight: {
-        display: 'flex',
-        marginLeft:theme.spacing(3),
-        borderLeft: '1px solid #e0e0e0',
-    },
-    productDetailsLeft: {
-        display: 'flex',
-        textAlign: 'center',
-    },
-    quantityBox: {
-        display: 'flex',
-        border: '1px solid rgba(0, 0, 0, 0.25)',
-        borderColor: '#000',
-        padding:'0 20px',
-        margin:theme.spacing(2),
-        width:'40px',
-        height:'auto',
-        position:'relative',
-        justifyContent:'space-between',
-        alignItems:'center',
-        color:'black'
-    },
-    productDescription: {
-        display: 'flex',
-        textAlign: 'center',
-        justifyContent:'center'
-    },
-    productDescriptionImage: {
-        width:'100%',
-        height:'100%',
-        objectFit:'cover',
-    }
-}));
+    productDetailSmall : {
+        display : 'flex',
+        marginTop : theme.spacing(1),
+        marginLeft : theme.spacing(.5),
+        '&:hover' : {
+            cursor : 'pointer',           
+        },
+        // justifyContent : 'start',
+        [theme.breakpoints.down('md')] : {
+            width : '30%',
+        },
+     },
+        productDescContainer : {
+            display : 'flex',
+            flexDirection : 'column',
+            border: '1px solid rgba(0, 0, 0, 0.09)',
+            // margin : theme.spacing(2),
+        },
+        quantityBox : {
+            display : 'flex',
+            border: '1px solid rgba(0, 0, 0, 0.25)',
+            borderColor: '#000',
+            borderRadius: '5px',
+            WebkitBoxShadow: '0px 0px 5px 0px rgba(0,0,0,1)',
+            width : '50px',
+            height : '30px',
+            alignItems : 'center',
+            justifyContent : 'center',
+            marginTop : theme.spacing(1),
+            margin : theme.spacing(1),
+            marginLeft : theme.spacing(5),
+            '&:hover' : {
+                cursor : 'pointer',           
+            }
+        },
+        quantityAndAddContainer : {
+            display : 'flex',
+        },
+        textField : {
+            // backgroundColor:'red',
+            width : '90%',
+            marginLeft : 'auto',
+            paddingBottom: 0,
+        marginTop: 0,
+        fontWeight: 500
+        },
+        searchMediaDelivery:{
+            display : 'flex',
+            flexDirection : 'column',
+            [theme.breakpoints.down('xs')] : {
+                display:'none'
+            }
+        },
+        search : {
+            display : 'flex',
+        },
+        facebookPluginBox : {
+            display : 'flex',
+            flexDirection : 'column',
+        },
+        facebookLikeImage : {
+            backgroundImage: `url(${back})`,
+            position : 'relative',
+            display : 'flex',
+            objectFit : 'contain',
+            width : '70%',
+            height : '70%',
+        },
+        categoryLinks:{
+            display:'flex',
+            flexDirection:'row',
+            marginTop:'5px'
+        },
+        socialLink:{
+            display:'flex',
+            flexDirection:'row',
+        },
+        linksContainer:{
+            display:'flex',
+            justifyContent:'center',
+            marginBottom:'5px',
+        },
+        link:{
+            backgroundColor:'#FF8C00',
+            color:'white',
+            borderRadius:'5px',
+            margin:'2px',
+            padding:'5px',
+        },
+        description:{
+            display:'flex',
+            alignItems:'center',
+        },
+        butonsContainer:{
+            display:'flex',
+        },
+        buttonSelf:{
+            // backgroundColor:'#FF8C00',
+            width:'20px',
+            height:'30px',
+        },
+        InputBaseCont:{
+            backgroundColor:'white',
+            width:'20px',
+            height:'30px',
+        },
+        addtoCart:{
+            display:'flex',
+            height:'30px',
+            width:'70%',
+        },
+        relatedProductsCont:{
+            // textAlign:'center'
+        },
+        relatedProdsText:{
+            display:'flex',
+            justifyContent:'center',
+            marginTop:'5px',
+            fontWeight:'bold'
+        }
+}))
 
 
-export default function ProductDetail () {
-    const available = 'instock'
 
-    const classes = useStyles();
+function ProductDetail({match}) {
+    const classes = useStyles()
+    const [quantity, setQuantity] = useState(0)
+    const [addtoCart] = useMutation(ADD_ITEM)
+    const {setCart} = useContext(CartContext);
 
+
+   const {loading, error, data} = useQuery(PRODUCT, {variables:{productId:parseInt(match.params.id)}})
+    if (loading) return <p>Loading...</p>
+    if (error) return `Error! ${error.message}`
+
+    // console.log(quantity)
+    
+    
+    
     return (
         <>
-            <Container>
-                <Box className={classes.root}>
-                    <Grid container spacing={2} className={classes.productDetailsLeft}>
-                        <Grid item xs={12} sm={6}>
-                            <Box><Typography variant="h6"> Floor Drain Strainer </Typography> </Box>
-                            <Box>
-                                <img className= {classes.productDescriptionImage} src="https://cdn.pixabay.com/photo/2018/07/26/10/36/bathroom-3563272__340.jpg" alt="product" />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={2} className={classes.productDetailsRight}>
-                        <Grid item xs={12} sm={6} style={{display:'flex'}} >
-                            <Box>
-                                <Typography variant="h5">KSH 1,500</Typography>
-                                <Typography variant="subtitle1">Status: {available}</Typography>
-                                <Divider/>
-                                <List>
-                                    <Typography variant="subtitle1">Product Details</Typography>
-                                    <ListItem><Typography variant="subtitle1">Applicable in kitchen, bathroom, garage, basement and toilet where shallow drain is required.</Typography></ListItem>
-                                    <Divider/>
-                                    <Button>
-                                        <Box className={classes.quantityBox}>
-                                            <div className='decrease'> - </div>
-                                            <div className='quantity'> 1 </div>
-                                            <div className='increase'> + </div>
-                                        </Box>
-                                    </Button>
-                                    <Button variant="contained" color="primary">Add to Cart</Button>
-                                    <Divider style={{marginTop:'2px'}}/>
-                                    <Box style={{display:'flex', justifyContent:'flex-start',marginTop:'5px'}}>Categories here</Box>
-                                </List>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Box>
-                <Container>
-                    <Grid container spacing={2} className={classes.productDescription} >
-                        <Grid item xs={12} sm={6}>
-                            <Box>
-                                <Typography>Product description here:</Typography>
-                                <Typography variant='subtitle1'>stainless steel toothbrush holder toothbrush holder stainless steel toothbrush and toothpaste holder stand razor blade organizer stand for bathroom square stainless steel toothbrush holder manufacture.Wall-mounted square toothbrush storage rack. Made up of stainless steel material, durable and solid enough. 4 toothbrush slots, 1 toothpaste slots, enough storage to for your toothbrush, toothpaste, razor, comb and so on. Easily put it on the counter or install it on your bathroom wall by 2 Screws.</Typography>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Container >
-                <Grid container spacing={2} className={classes.relatedProducts} >
-                    <Grid item xs={12} sm={6}>
-                        <Box><Typography variant="h6">Related Products</Typography> </Box>
-                    </Grid>
-
+        <Container>
+            <Grid container spacing={3} className={classes.root}>
+                <Grid item xs={12} sm={4} className={classes.imageContainer}>
+                <Carousel> 
+                    {data.product.images.map((image,index) =>(
+                        <div key={index}>
+                        <img src={image} alt={image.alt} className={classes.productDetailImage}/>
+                        </div>
+                    ))}
+            </Carousel>
                 </Grid>
-            </Container>
+                <Grid item xs={12} sm={4} className={classes.productDescContainer}>
+                    <Typography variant="h5">{data.product.name}</Typography>
+                    <Typography variant="h6">${data.product.price}</Typography>
+                            <Typography variant="body1">Product Description </Typography>
+                            <Typography>{data.product.description}</Typography>
+
+                <Grid item xs={12} sm={6} className={classes.quantityAndAddContainer}>
+                <ButtonGroup color="primary" aria-label="outlined primary button group small" className={classes.butonsCont}>
+                    <Button onClick={()=>{ if (quantity <= 1 ){
+                        setQuantity(1) 
+                    }
+                    else {
+                        setQuantity(quantity-1)
+                    }
+                     } } className={classes.buttonSelf}>-</Button>
+                    <InputBase type='number' onChange={(e)=>setQuantity(parseInt(e.target.value))} className={classes.InputBaseCont} value={quantity} />
+                    <Button onClick={()=>setQuantity(quantity+1)} className={classes.buttonSelf}>+</Button>
+                    </ButtonGroup>
+                </Grid>
+                <Button
+                onClick ={ async () => {
+                    try {
+                        const {data: cartData} = await addtoCart({
+                            variables: {
+                                cartId: new String(localStorage.getItem('cartId')),
+                                productId:data.product.id,
+                                quantity:quantity
+                            }
+                        })
+                        setCart(cartData.addItem.cart)
+                    } catch(err) {
+                        console.log(err)
+                    }
+                }}
+                 className={classes.addtoCart} variant="outlined" color="secondary" size='small'>Add to Cart</Button>
+                <Grid item xs={12} sm ={6} className={classes.categoryLinks} >
+                    <Typography>Categories:</Typography>
+                    <Link>Taps</Link>,
+                    <Link>Basins</Link>
+                </Grid>
+                <Grid item xs ={12} sm={6} className={classes.socialLink}>
+                    <Link underline='none'> <FacebookIcon className={classes.icons} /> </Link>
+                    <Link underline='none'> <InstagramIcon className={classes.icons} /> </Link>
+                    <Link underline='none'> <TwitterIcon className={classes.icons} /> </Link>
+                </Grid>
+                </Grid>
+                <Grid item xs={12} sm={4} className={classes.searchMediaDelivery}>
+                    <Typography variant="h5">Search Any Product Here</Typography>
+                    <div className={classes.search}>
+                    <TextField id="outlined-basic" label="Search for products" variant="outlined" className={classes.textField} />
+                    <Button variant="contained" color="primary"><SearchIcon/></Button>
+                    </div>
+                    <div className={classes.facebookPluginBox}>
+                        <Typography variant="h6">Like us on Facebook</Typography>
+                        <div className={classes.facebookLikeImage}>
+                        {/* <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="100%" height="100%" style={{border: 'none',overflow: 'hidden'}} scrolling="no" frameBorder="0" allowTransparency="true" allow="encrypted-media"></iframe> */}
+                        </div>
+                        </div>
+                        <Grid>
+                            <Typography variant="h6">Delivery Information</Typography>
+                            <Typography variant="body1">Same Day Delivery in Nairobi and  24 hours max delevery countrywide</Typography>
+                            </Grid>
+                            <Grid>
+                            <Typography variant="h6">Return and Refunds</Typography>
+                            <Typography variant="body1">Easy Returns and Quick refunds</Typography>
+                            </Grid>
+                </Grid>
+                <Grid container spacing={3} className={classes.root2}>
+                    <Grid item xs={12} sm={6} className={classes.linksContainer}>
+                        <Grid>
+                            <Link underline='none'className={classes.link} >Description</Link>
+                            <Link underline='none'className={classes.link} >Reviews(0)</Link>
+                            <Link underline='none'className={classes.link}>Delivey & Returns</Link>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3} className={classes.root2}>
+                <Grid item xs={12} sm={6} className={classes.description}>
+                        <Grid>
+                            <Typography variant='h5' >Product Description</Typography>
+                            <Typography>{data.product.description}
+                            </Typography>
+                            </Grid>
+                    </Grid>
+                    </Grid>
+                </Grid>
+               <div className={classes.relatedProductsCont}> 
+                <Typography className={classes.relatedProdsText}>Related Products</Typography>
+               <Products products={data.similarProducts.slice(0,4)} />  
+               </div>
+        </Container>             
         </>
     )
 }
+
+export default ProductDetail
