@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route exact path='/Cart'>
             <Cart />
           </Route>
+          <Route exact path = '/contact'>
+            <ContactPage/>
+            </Route>
         </Switch>
       </Layout>
     </Router>
