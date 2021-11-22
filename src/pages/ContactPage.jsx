@@ -5,14 +5,27 @@ import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
+import CallIcon from "@material-ui/icons/Call";
+import EmailIcon from "@material-ui/icons/Email";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // height: '100vh',
+    // height: "100vh",
     marginTop: "10px",
     backgroundRepeat: "no-repeat",
     backgroundImage: "url(https://source.unsplash.com/random)",
     backgroundSize: "cover",
+  },
+  telephone: {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px",
+    marginTop: "10px",
+  },
+  contactsCont: {
+    display: "flex",
+    width: "80%",
   },
 }));
 
@@ -39,7 +52,7 @@ function ContactPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(firstName, lastName, email, message);
-    // alert(`${firstName} ${lastName} has sent you a message: ${message}`)
+    alert(`${firstName} ${lastName} has sent you a message: ${message}`);
   };
   return (
     <Container className={classes.root}>
@@ -47,7 +60,7 @@ function ContactPage() {
         {" "}
         Contact Us here
       </Typography>
-      <Card style={{ backgroundColor: "white", width: "70%" }}>
+      <Card style={{ backgroundColor: "transparent", width: "80%" }}>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
@@ -109,7 +122,7 @@ function ContactPage() {
                   fullWidth
                   required
                   multiline
-                  row={2}
+                  maxRows={3}
                   value={message}
                   onChange={(e) => handleChange(e)}
                 />
@@ -127,6 +140,40 @@ function ContactPage() {
               </Grid>
             </Grid>
           </form>
+        </CardContent>
+      </Card>
+      <Card
+        style={{
+          backgroundColor: "transparent",
+          width: "70%",
+          marginTop: "10px",
+        }}
+      >
+        <CardContent className={classes.contactsCont}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} className={classes.telephone}>
+              <Typography> Telephone</Typography>
+              {/* <CallIcon style={{ fontSize: "20px" }} /> */}
+              <Typography>
+                {/* <Link>071500000</Link> */}
+                <Link href="tel:071500000">0715000000</Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.telephone}>
+              <Typography color="inherit" > Email</Typography>
+              {/* <EmailIcon tyle={{ fontSize: "20px" }} /> */}
+              <Typography>
+                <Link>buildershub@gmail.com</Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.telephone}>
+              <Typography color="inherit" >Open</Typography>
+              {/* <EmailIcon tyle={{ fontSize: "20px" }} /> */}
+              <Typography>
+                <Link>Mon-Fri: 9am-5pm</Link>
+              </Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Container>
