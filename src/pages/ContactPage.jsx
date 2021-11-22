@@ -160,14 +160,14 @@ function ContactPage() {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.telephone}>
-              <Typography color="inherit" > Email</Typography>
+              <Typography color="inherit"> Email</Typography>
               {/* <EmailIcon tyle={{ fontSize: "20px" }} /> */}
               <Typography>
                 <Link>buildershub@gmail.com</Link>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.telephone}>
-              <Typography color="inherit" >Open</Typography>
+              <Typography color="inherit">Open</Typography>
               {/* <EmailIcon tyle={{ fontSize: "20px" }} /> */}
               <Typography>
                 <Link>Mon-Fri: 9am-5pm</Link>
