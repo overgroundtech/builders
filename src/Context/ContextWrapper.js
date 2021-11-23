@@ -1,6 +1,7 @@
 import ProductsProvider from './ProductContext';
 import CategoryProvider from './CategoryContext';
 import CartProvider from "./CartContext";
+import AlertProvider from './alertContext';
 
 export default function ContextProvider({children}){
 
@@ -8,7 +9,9 @@ export default function ContextProvider({children}){
         <ProductsProvider>
             <CartProvider>
                 <CategoryProvider>
-                    {children}
+                    <AlertProvider>
+                        {children}
+                    </AlertProvider>
                 </CategoryProvider>
             </CartProvider>
         </ProductsProvider>

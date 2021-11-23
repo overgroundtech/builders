@@ -35,37 +35,22 @@ export const CART_QUERY = gql`
 `;
 
 export const CATEGORY_PRODUCTS = gql`
-  query ($cartId: String!) {
-    categoryProducts {
-      category {
-        id
-        name
-        image
-      }
-      products {
-        id
-        name
-        price
-        offer
-        discount
-        images
-        categoryId
-      }
-    }
-    cart(cartId: $cartId) {
-      items {
-        product {
-          id
-          name
-          price
-          images
+{
+    categoryProducts{
+        category{
+            id
+            name
+            image
         }
-        unitPrice
-        quantity
-        total
-      }
-      summary
-      count
+        products{
+            id
+            name
+            price
+            offer
+            discount
+            images
+            categoryId
+        }
     }
   }
 `;
