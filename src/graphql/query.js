@@ -36,7 +36,7 @@ query($cartId: String!){
 
 
 export const CATEGORY_PRODUCTS = gql`
-query($cartId: String!){
+{
     categoryProducts{
         category{
             id
@@ -52,21 +52,6 @@ query($cartId: String!){
             images
             categoryId
         }
-    }
-    cart(cartId: $cartId){
-        items{
-            product{
-                id
-                name
-                price
-                images
-            }
-            unitPrice
-            quantity
-            total
-        }
-        summary
-        count
     }
   }
 `

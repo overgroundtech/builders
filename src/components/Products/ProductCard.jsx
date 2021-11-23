@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import {useMutation} from '@apollo/client';
 import {CartContext} from '../../Context/CartContext';
 import {ADD_ITEM} from '../../graphql/mutation';
+import {AlertContext} from '../../Context/alertContext';
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
 
 export default function ProductCard({product}) {
     const {setCart} = useContext(CartContext);
+    const {setOpen, setMessage} = useContext(AlertContext);
     const [addItem] = useMutation(ADD_ITEM);
     const classes = useStyles();
     const history = useHistory();
@@ -70,7 +72,13 @@ export default function ProductCard({product}) {
                                         quantity: 1
                                     }
                                 })
+                                setMessage('item was added to cart!')
+                                setOpen(true)
                                 setCart(data.addItem.cart)
+                                setTimeout(() => {
+                                    setOpen(false);
+                                    setMessage('')
+                                }, 4000)
                             }catch(err){
                                 console.log(err)
                         } }}

@@ -4,6 +4,8 @@ import { DeleteForeverOutlined, CheckCircle, FlashOffRounded } from '@material-u
 import {useMutation} from '@apollo/client';
 import {CartContext} from '../../Context/CartContext';
 import {REMOVE_ITEM, UPDATE_ITEM} from '../../graphql/mutation';
+import { AlertContext } from '../../Context/alertContext';
+
 
 const useStyles = makeStyles(theme => ({
     cartImage: {
@@ -21,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CartItem({item}) {
+    const {setMessage, setOpen} = useContext(AlertContext);
     const {setCart} = useContext(CartContext);
     const [quantity, setQuantity] = useState(item.quantity)
     const [check, setCheck] = useState(false);
@@ -56,6 +59,12 @@ export default function CartItem({item}) {
                             });
                             setCheck(false);
                             setCart(data.updateItem.cart);
+                            setMessage('cart item has been updated');
+                            setOpen(true);
+                            setTimeout(() => {
+                                setOpen(false);
+                                setMessage('');
+                            }, 4000)
                         }
                     }>
                         <CheckCircle />
@@ -74,6 +83,12 @@ export default function CartItem({item}) {
                     if (data){
                         setCart(data.removeItem.cart)
                     }
+                    setMessage('item was removed from cart');
+                    setOpen(true);
+                    setTimeout(() => {
+                        setOpen(false);
+                        setMessage('')
+                    }, 4000)
                 }}>
                     <DeleteForeverOutlined  color="error" />
                 </IconButton>
