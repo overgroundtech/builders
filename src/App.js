@@ -9,6 +9,9 @@ import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import ContactPage from './pages/ContactPage';
+import Orders from './components/userdashboard/Orders';
+import Account from './components/userdashboard/Account';
+import Messages from './components/userdashboard/Messages';
 
 function App() {
   return (
@@ -25,6 +28,18 @@ function App() {
           <Route exact path = '/contact'>
             <ContactPage/>
             </Route>
+            {/* <Route exact path = '/UserDashContainer' >
+            <UserDashContainer/>
+            </Route> */}
+            <Route exact path = '/Orders' component={Orders}>
+            <Orders/>
+            </Route>
+            <Route exact path = '/Account' component={Account}>
+            <Account/>
+            </Route> 
+            <Route exact path = '/Messages' component={Messages}>
+            <Messages/>
+            </Route> 
         </Switch>
       </Layout>
     </Router>
