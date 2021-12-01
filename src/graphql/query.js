@@ -73,4 +73,14 @@ export const PRODUCT = gql`
       categoryId
     }
   }
-`;
+`
+
+export const ME = gql`
+{
+  me{
+    id
+    email
+    username
+  }
+}
+`

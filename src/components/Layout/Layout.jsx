@@ -17,8 +17,7 @@ const useStyles = makeStyles(theme => ({
         height: 'fit-content'
     },
     alert: {
-        position: '-webkit-sticky',
-        position: 'sticky',
+        position: '-webkit-sticky sticky',
         top: 20,
         bottom: 20, 
         zIndex: 5,
@@ -38,7 +37,6 @@ export default function Layout({ children }) {
            <Toolbar className={classes.toolbar} />
             <div className={classes.page}>
             {children}
-            </div>
             <Collapse in={open} className={classes.alert}>
                 <Alert
                 variant="filled"
@@ -59,6 +57,8 @@ export default function Layout({ children }) {
                 {message}
                 </Alert>
             </Collapse>
+            </div>
+
             <Footer className={classes.footer} />
         </>
      )

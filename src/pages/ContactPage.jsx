@@ -153,7 +153,7 @@ function ContactPage() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} className={classes.telephone}>
               <Typography> Telephone</Typography>
-              {/* <CallIcon style={{ fontSize: "20px" }} /> */}
+              <CallIcon style={{ fontSize: "20px" }} />
               <Typography>
                 {/* <Link>071500000</Link> */}
                 <Link href="tel:071500000">0715000001</Link>

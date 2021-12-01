@@ -5,18 +5,21 @@ import {
     Toolbar,
     InputBase,
     Typography,
-    Avatar,
+    Menu,
+    MenuItem,
     Badge,
     IconButton,
 } from '@material-ui/core';
 import {
      Search,
      AddShoppingCart,
-     Cancel
+     Cancel,
+     AccountCircleOutlined
 } from '@material-ui/icons';
 import {useHistory} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
 import {CartContext} from '../../Context/CartContext';
+import {UserContext} from '../../Context/UserContext';
 
 
 const useStyles = makeStyles( theme => ({
@@ -78,9 +81,14 @@ const useStyles = makeStyles( theme => ({
     }
 }));
 
+
 export default function Navbar () {
     const {cart} = useContext(CartContext);
+    const { login } = useContext(UserContext)
     const [show, setShow] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
     const classes = useStyles(show);
     const history = useHistory();
     return (
@@ -104,10 +112,42 @@ export default function Navbar () {
                             <AddShoppingCart onClick={() => history.push('/cart')} />
                             </Badge> 
                         
-                        <Avatar className={classes.badge} > A</Avatar>
+                        <IconButton className={classes.badge} onClick={(e) => setAnchorEl(e.currentTarget) } >
+                            <AccountCircleOutlined/>
+                        </IconButton>
+
                     </div>
                 </Toolbar>
             </AppBar>
+            <Menu
+                open={open}
+                onClose={()=> setAnchorEl(null)}
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                    {
+                        login?
+                            <div>
+                                <MenuItem>Dashboard</MenuItem>
+                                <MenuItem>Logout</MenuItem>
+                            </div>
+                            :
+                            <div>
+                                <MenuItem onClick={() => history.push('/login')} >Login</MenuItem>
+                                <MenuItem onClick={() => history.push('/register')} >Register</MenuItem>
+                            </div>
+
+                    }
+            </Menu>
         </>
     )
 }
