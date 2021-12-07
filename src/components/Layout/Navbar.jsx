@@ -8,7 +8,7 @@ import {
     Menu,
     MenuItem,
     Badge,
-    IconButton,
+    IconButton, Collapse,
 } from '@material-ui/core';
 import {
      Search,
@@ -20,6 +20,8 @@ import {useHistory} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
 import {CartContext} from '../../Context/CartContext';
 import {UserContext} from '../../Context/UserContext';
+import {AlertContext} from "../../Context/alertContext";
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles( theme => ({
@@ -78,6 +80,14 @@ const useStyles = makeStyles( theme => ({
         [theme.breakpoints.up("md")]: {
             display: "none"
         }
+    },
+    alert: {
+        position: '-webkit-sticky sticky',
+        top: '50vh',
+        zIndex: 5,
+        left: '4%',
+        width: '100%',
+        margin: '2px'
     }
 }));
 
@@ -85,9 +95,10 @@ const useStyles = makeStyles( theme => ({
 export default function Navbar () {
     const {cart} = useContext(CartContext);
     const { login } = useContext(UserContext)
+    const {open, message, setOpen} = useContext(AlertContext);
     const [show, setShow] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const openMenu = Boolean(anchorEl);
 
     const classes = useStyles(show);
     const history = useHistory();
@@ -115,12 +126,11 @@ export default function Navbar () {
                         <IconButton className={classes.badge} onClick={(e) => setAnchorEl(e.currentTarget) } >
                             <AccountCircleOutlined/>
                         </IconButton>
-
                     </div>
                 </Toolbar>
             </AppBar>
             <Menu
-                open={open}
+                open={openMenu}
                 onClose={()=> setAnchorEl(null)}
                 id="menu-appbar"
                 anchorEl={anchorEl}
