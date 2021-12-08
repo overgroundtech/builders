@@ -12,8 +12,8 @@ import ContextProvider from "./Context/ContextWrapper";
 import { setContext } from "@apollo/client/link/context";
 
 
-const link = createUploadLink({
-  uri: 'http://localhost:8000/graphql/'
+const httpLink = createUploadLink({
+  uri: 'https://buildersbhub.pythonanywhere.com/graphql/'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -27,7 +27,7 @@ const authLink = setContext((_, { headers }) => {
   });
 
 const client = new ApolloClient({
-    link,
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 });
 

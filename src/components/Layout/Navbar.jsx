@@ -11,10 +11,10 @@ import {
     IconButton, Collapse,
 } from '@material-ui/core';
 import {
-     Search,
-     AddShoppingCart,
-     Cancel,
-     AccountCircleOutlined
+    Search,
+    AddShoppingCart,
+    Cancel,
+    AccountCircleOutlined, ErrorOutlined
 } from '@material-ui/icons';
 import {useHistory} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
@@ -128,6 +128,28 @@ export default function Navbar () {
                         </IconButton>
                     </div>
                 </Toolbar>
+
+                <Collapse in={open} className={classes.alert}>
+                    <Alert
+                        variant="filled"
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <Cancel fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                    >
+                        {message}
+                    </Alert>
+                </Collapse>
+
             </AppBar>
             <Menu
                 open={openMenu}
@@ -152,8 +174,14 @@ export default function Navbar () {
                             </div>
                             :
                             <div>
-                                <MenuItem onClick={() => history.push('/login')} >Login</MenuItem>
-                                <MenuItem onClick={() => history.push('/register')} >Register</MenuItem>
+                                <MenuItem onClick={() => {
+                                    history.push('/login');
+                                    setAnchorEl(null)
+                                }} >Login</MenuItem>
+                                <MenuItem onClick={() => {
+                                    history.push('/register');
+                                    setAnchorEl(null)
+                                }} >Register</MenuItem>
                             </div>
 
                     }

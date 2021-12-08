@@ -85,7 +85,7 @@ export default function Register(){
         }catch (error) {
             setError(error.message);
             setShowEr(true);
-            setTimeout(() => setShowEr(false), 4000)
+            setTimeout(() => setShowEr(false), 10000)
         }
     }
 

@@ -14,6 +14,8 @@ export const TOKEN_AUTH = gql`
             token
             user{
                 id
+                username
+                email
             }
         }
     }

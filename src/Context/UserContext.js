@@ -14,8 +14,9 @@ export default function UserProvider({children}){
     useEffect(()=> {
         if(data){
             setUser(data.me);
+            setLogin(true)
         }
-    }, [data, setUser]);
+    }, [data, setUser, setLogin, login]);
 
     if (loading) return <Loader type="TailSpin" color="#00BFFF" height={100} width={100} timeout={10000} />;
 
