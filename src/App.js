@@ -11,6 +11,7 @@ import Cart from './pages/Cart';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path='/register'>
             <RegisterPage />
+          </Route>
+          <Route exact path='/checkout'>
+            <Checkout />
           </Route>
         </Switch>
       </Layout>

@@ -16,7 +16,7 @@ import {
     Cancel,
     AccountCircleOutlined, ErrorOutlined
 } from '@material-ui/icons';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import { grey } from '@material-ui/core/colors';
 import {CartContext} from '../../Context/CartContext';
 import {UserContext} from '../../Context/UserContext';
@@ -93,7 +93,7 @@ const useStyles = makeStyles( theme => ({
 
 export default function Navbar () {
     const {cart} = useContext(CartContext);
-    const { login, setLogin, setUser } = useContext(UserContext)
+    const { login, setLogin, setUser, setRedirect } = useContext(UserContext)
     const {open, message, setOpen, setMessage} = useContext(AlertContext);
     const [show, setShow] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -101,6 +101,7 @@ export default function Navbar () {
 
     const classes = useStyles(show);
     const history = useHistory();
+    const location = useLocation();
     return (
         <>
             <AppBar elevation={1} color="inherit">
@@ -187,6 +188,7 @@ export default function Navbar () {
                             :
                             <div>
                                 <MenuItem onClick={() => {
+                                    setRedirect(location.pathname)
                                     history.push('/login');
                                     setAnchorEl(null);
                                 }} >Login</MenuItem>

@@ -8,8 +8,10 @@ export const UserContext = createContext();
 export default function UserProvider({children}){
     const [user, setUser] = useState();
     const [login, setLogin] = useState(false);
+    const [redirect, setRedirect] = useState('/');
     const {loading, data}  = useQuery(ME);
-    const providerValue = useMemo(() => ({user, setUser, login, setLogin}), [user, setUser, login, setLogin])
+    const providerValue = useMemo(() => ({user, setUser, login, setLogin, redirect, setRedirect}),
+        [user, setUser, login, setLogin, setRedirect, redirect]);
 
     useEffect(()=> {
         if(data){

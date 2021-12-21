@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
     makeStyles,
     Grid,
@@ -13,12 +13,23 @@ import {
     Button
 } from '@material-ui/core';
 import CartItem from "./CartItem";
+import {UserContext} from '../../Context/UserContext';
+import {useHistory} from 'react-router-dom';
 
-const useSytes = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
 
 }))
 
 export default function CartContainer({cart}){
+    const {login} = useContext(UserContext);
+    const history = useHistory()
+    const checkout = () => {
+        if(login){
+            history.push('/checkout');
+        }else{
+            history.push('/login');
+        }
+    }
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} md={8}>
@@ -66,7 +77,7 @@ export default function CartContainer({cart}){
                         </TableRow>
                         <TableRow component="div">
                             <TableCell component="div">
-                                <Button variant="contained" color="secondary"> Checkout </Button>
+                                <Button variant="contained" color="secondary" onClick={checkout} > Checkout </Button>
                             </TableCell>
                         </TableRow>
                     </TableBody>

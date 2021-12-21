@@ -55,8 +55,8 @@ export default function Login(){
     const [error, setError] = useState();
     const [showEr, setShowEr] = useState(false);
 
-    const {setUser, login, setLogin} = useContext(UserContext);
-    const {open, setOpen, message, setMessage} = useContext(AlertContext);
+    const {setUser, login, setLogin, redirect} = useContext(UserContext);
+    const {setOpen, setMessage} = useContext(AlertContext);
 
     const classes = useStyles();
     const history = useHistory();
@@ -64,7 +64,7 @@ export default function Login(){
 
     useEffect(() => {
         if(login){
-            history.push('/cart')
+            history.push(redirect);
         }
     }, [login, setLogin]);
 
@@ -123,7 +123,7 @@ export default function Login(){
                         {error}
                     </Alert>
                 </Collapse>
-                <Typography className={classes.text} variant={"body1"}>Already have an account? <a className={classes.link} onClick={() => history.push('/login')}>login</a></Typography>
+                <Typography className={classes.text} variant={"body1"}>Don't have an account? <a className={classes.link} onClick={() => history.push('/register')}>Register</a></Typography>
             </form>
 
         </Container>
