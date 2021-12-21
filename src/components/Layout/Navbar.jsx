@@ -27,8 +27,7 @@ import Alert from '@material-ui/lab/Alert';
 const useStyles = makeStyles( theme => ({
     logo: {
         marginRight: theme.spacing(1),
-        height: 'inherit',
-        maxWidth: 80
+        height: theme.spacing(10),
     },
     toolbar: {
         display: 'flex',
@@ -94,8 +93,8 @@ const useStyles = makeStyles( theme => ({
 
 export default function Navbar () {
     const {cart} = useContext(CartContext);
-    const { login } = useContext(UserContext)
-    const {open, message, setOpen} = useContext(AlertContext);
+    const { login, setLogin, setUser } = useContext(UserContext)
+    const {open, message, setOpen, setMessage} = useContext(AlertContext);
     const [show, setShow] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const openMenu = Boolean(anchorEl);
@@ -167,16 +166,29 @@ export default function Navbar () {
                 }}
             >
                     {
-                        login?
+                        login && login === true?
                             <div>
-                                <MenuItem>Dashboard</MenuItem>
-                                <MenuItem>Logout</MenuItem>
+                                <MenuItem onClick={()=> {
+                                    alert('dashboard not ready yet');
+                                    setAnchorEl(null);
+                                }
+                                } >Dashboard</MenuItem>
+                                <MenuItem onClick={() => {
+                                    localStorage.removeItem('token');
+                                    setUser(null);
+                                    setLogin(false);
+                                    setMessage('logout was successful');
+                                    setOpen(true);
+                                    setAnchorEl(null);
+                                    setTimeout( () => setOpen(false), 4000);
+                                }
+                                } >Logout</MenuItem>
                             </div>
                             :
                             <div>
                                 <MenuItem onClick={() => {
                                     history.push('/login');
-                                    setAnchorEl(null)
+                                    setAnchorEl(null);
                                 }} >Login</MenuItem>
                                 <MenuItem onClick={() => {
                                     history.push('/register');

@@ -13,7 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 
 
 const httpLink = createUploadLink({
-  uri: 'https://buildersbhub.pythonanywhere.com/graphql/'
+  uri: 'http://localhost:8000/graphql/'
 });
 
 const authLink = setContext((_, { headers }) => {

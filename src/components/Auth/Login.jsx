@@ -6,6 +6,7 @@ import {Cancel, ErrorOutlined } from "@material-ui/icons";
 import {useMutation} from '@apollo/client';
 import {TOKEN_AUTH} from "../../graphql/mutation";
 import {UserContext} from '../../Context/UserContext';
+import {AlertContext} from'../../Context/alertContext';
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -55,6 +56,7 @@ export default function Login(){
     const [showEr, setShowEr] = useState(false);
 
     const {setUser, login, setLogin} = useContext(UserContext);
+    const {open, setOpen, message, setMessage} = useContext(AlertContext);
 
     const classes = useStyles();
     const history = useHistory();
@@ -79,7 +81,10 @@ export default function Login(){
                 if (data.tokenAuth.token && data.tokenAuth.user){
                     localStorage.setItem('token', data.tokenAuth.token);
                     setUser(data.tokenAuth.user);
+                    setMessage('login was successful');
+                    setOpen(true)
                     setLogin(true)
+                    setTimeout(() => setOpen(false), 4000);
                 }
             }
         }catch (error) {
