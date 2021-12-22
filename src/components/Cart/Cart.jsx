@@ -21,12 +21,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function CartContainer({cart}){
-    const {login} = useContext(UserContext);
-    const history = useHistory()
+    const {login, setRedirect} = useContext(UserContext);
+    const history = useHistory();
+
     const checkout = () => {
         if(login){
             history.push('/checkout');
         }else{
+            setRedirect('/checkout')
             history.push('/login');
         }
     }
