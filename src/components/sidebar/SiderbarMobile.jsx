@@ -3,8 +3,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card,CardMedia,CardContent, CardActionArea} from '@material-ui/core'
 import {ProductContext} from "../../Context/ProductContext";
-import {PRODUCTS_QUERY} from "../../graphql/query";
-import {useLazyQuery} from '@apollo/client';
+import {ArrowDropDown} from '@material-ui/icons';
 
 const useStyles = makeStyles (theme=>({
     sidebarContainer:{
@@ -52,31 +51,39 @@ const useStyles = makeStyles (theme=>({
 
 function SidebarMobile({catProds}) {
     const {products, setProducts} = useContext(ProductContext);
-    const [getProds] = useLazyQuery(PRODUCTS_QUERY);
     const classes = useStyles()
+
 
     const handleFilter = (id) => {
         const filtered = catProds.filter(item => item.category.id === id)[0]
-        setProducts(filtered.products)
+        return filtered.products
     }
-    const resetAll = async () => {
-        const {data} = await getProds();
-        if(data){
-            console.log(data)
+
+    const allProducts = (arr) => {
+        let products = []
+        for(let i = 0; i < arr.length; i++){
+            for(let j = 0; j < arr[i].length; j++){
+                products = [...products, arr[i][j]];
+            }
         }
+        return products;
     }
-
-
+    let allProds = catProds.map(catProd => catProd.products);
+    const resetAll = () => {
+        setProducts(allProducts(allProds));
+    }
 
     return (
         <Grid container spacing={2} className={classes.sidebarContainer} >
-            <Grid item xs={3}>
-                <Card elevation={3}
-                    className={classes.root}
-                    className={products.length === initialProds.length? 'active': ''}
-                    onClick={resetAll}
+            <Grid item  xs={3}>
+                <Card elevation={3} className={classes.root}
+                      className={products.length === allProducts(allProds).length ? classes.active : ''}
+                      onClick={resetAll}
                 >
                     <CardActionArea>
+                        <CardMedia className={classes.media}>
+                            <ArrowDropDown color="secondary" />
+                        </CardMedia>
                         <CardContent>
                             <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
                                 All
@@ -89,8 +96,8 @@ function SidebarMobile({catProds}) {
             {catProds && catProds.map(item=>(
                 <Grid item  xs={3}  key={item.category.id}>
                     <Card elevation={3} className={classes.root} 
-                            className={products[0] && (products[0].categoryId === item.category.id? classes.active : '')}
-                            onClick={() => handleFilter(item.category.id)}
+                            className={products[0] && products[0].categoryId === item.category.id && handleFilter(item.category.id).length === products.length ? classes.active : ''}
+                            onClick={() => setProducts(handleFilter(item.category.id))}
                     >
                         <CardActionArea>
                             <CardMedia

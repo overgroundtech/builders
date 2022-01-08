@@ -38,10 +38,24 @@ const useStyles = makeStyles(theme=>({
 function Sidebar({catProds}) {
     const {products, setProducts} = useContext(ProductContext);
     const classes = useStyles()
-    // TODO ADD THE ALL CATEGORY
+
     const handleFilter = (id) => {
         const filtered = catProds.filter(item => item.category.id === id)[0]
-        setProducts(filtered.products)
+        return filtered.products
+    }
+
+    const allProducts = (arr) => {
+        let products = []
+        for(let i = 0; i < arr.length; i++){
+            for(let j = 0; j < arr[i].length; j++){
+                products = [...products, arr[i][j]];
+            }
+        }
+        return products;
+    }
+    let allProds = catProds.map(catProd => catProd.products);
+    const resetAll = () => {
+        setProducts(allProducts(allProds));
     }
 
     return (
@@ -50,6 +64,8 @@ function Sidebar({catProds}) {
                 <ListItem
                     button
                     className={classes.menuItems}
+                    className={products.length === allProducts(allProds).length ? classes.active : ''}
+                    onClick={resetAll}
                     >
                     <ListItemText style={{marginLeft: '3px'}}>All</ListItemText>
                     <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
@@ -58,8 +74,8 @@ function Sidebar({catProds}) {
                     <ListItem key={item.category.id}
                     button
                     className={classes.menuItems}
-                    className={products[0] && (products[0].categoryId === item.category.id? classes.active : '')}
-                    onClick={() => handleFilter(item.category.id)}
+                    className={products[0] && products[0].categoryId === item.category.id && handleFilter(item.category.id).length === products.length ? classes.active : ''}
+                    onClick={() => setProducts(handleFilter(item.category.id))}
 
                      >
                         <img className={classes.categoryImage} src={item.category.image} />
