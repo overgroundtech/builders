@@ -3,6 +3,8 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card,CardMedia,CardContent, CardActionArea} from '@material-ui/core'
 import {ProductContext} from "../../Context/ProductContext";
+import {PRODUCTS_QUERY} from "../../graphql/query";
+import {useLazyQuery} from '@apollo/client';
 
 const useStyles = makeStyles (theme=>({
     sidebarContainer:{
@@ -50,15 +52,40 @@ const useStyles = makeStyles (theme=>({
 
 function SidebarMobile({catProds}) {
     const {products, setProducts} = useContext(ProductContext);
+    const [getProds] = useLazyQuery(PRODUCTS_QUERY);
     const classes = useStyles()
 
     const handleFilter = (id) => {
         const filtered = catProds.filter(item => item.category.id === id)[0]
         setProducts(filtered.products)
     }
+    const resetAll = async () => {
+        const {data} = await getProds();
+        if(data){
+            console.log(data)
+        }
+    }
+
+
 
     return (
         <Grid container spacing={2} className={classes.sidebarContainer} >
+            <Grid item xs={3}>
+                <Card elevation={3}
+                    className={classes.root}
+                    className={products.length === initialProds.length? 'active': ''}
+                    onClick={resetAll}
+                >
+                    <CardActionArea>
+                        <CardContent>
+                            <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
+                                All
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
+
             {catProds && catProds.map(item=>(
                 <Grid item  xs={3}  key={item.category.id}>
                     <Card elevation={3} className={classes.root} 
@@ -69,7 +96,7 @@ function SidebarMobile({catProds}) {
                             <CardMedia
                              className={classes.media}>
                                 <img src={item.category.image} className={classes.mediaImage} alt={item.id + "image"} />
-                             </CardMedia>                   
+                             </CardMedia>
                             <CardContent>
                                 <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
                                     {item.category.name}

@@ -47,6 +47,13 @@ function Sidebar({catProds}) {
     return (
         <div className={classes.sidebarContainer} >
             <List>
+                <ListItem
+                    button
+                    className={classes.menuItems}
+                    >
+                    <ListItemText style={{marginLeft: '3px'}}>All</ListItemText>
+                    <ListItemIcon> <ChevronRight color="secondary" /> </ListItemIcon>
+                </ListItem>
                 {catProds && catProds.map(item=>(
                     <ListItem key={item.category.id}
                     button
