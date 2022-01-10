@@ -88,3 +88,14 @@ mutation($cartId: String! $productId: Int! $quantity: Int!){
     }
   }
 `
+
+export const SEARCH = gql`
+    mutation ($key: String!){
+        search(key: $key){
+            results{
+                id
+                name
+            }
+        }
+    }
+`

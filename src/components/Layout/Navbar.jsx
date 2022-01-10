@@ -22,6 +22,9 @@ import {CartContext} from '../../Context/CartContext';
 import {UserContext} from '../../Context/UserContext';
 import {AlertContext} from "../../Context/alertContext";
 import Alert from '@material-ui/lab/Alert';
+import SearchBar from 'material-ui-search-bar';
+import {useMutation} from '@apollo/client';
+import {SEARCH} from '../../graphql/mutation';
 
 
 const useStyles = makeStyles( theme => ({
@@ -58,6 +61,7 @@ const useStyles = makeStyles( theme => ({
         '&: hover': {
             backgroundColor: 'blue'   
         },
+        marginLeft: theme.spacing(1),
         [theme.breakpoints.down("sm")]: {
             display: (show) => {
                 if(show){
@@ -95,13 +99,29 @@ export default function Navbar () {
     const {cart} = useContext(CartContext);
     const { login, setLogin, setUser, setRedirect } = useContext(UserContext)
     const {open, message, setOpen, setMessage} = useContext(AlertContext);
+    const [search, {loading, error}] = useMutation(SEARCH);
     const [show, setShow] = useState(false);
+    const [searchRes, setSearchRes] = useState(['this', 'hat', 'that']);
     const [anchorEl, setAnchorEl] = useState(null);
     const openMenu = Boolean(anchorEl);
 
     const classes = useStyles(show);
     const history = useHistory();
     const location = useLocation();
+
+    const handleSearch = async (value) => {
+        const {data} = await search({
+            variables: {
+                key: value
+            }
+        });
+        if(data){
+            console.log(data);
+            // setSearchRes(data.search.results);
+            console.log(searchRes);
+        }
+    }
+
     return (
         <>
             <AppBar elevation={1} color="inherit">
@@ -109,11 +129,15 @@ export default function Navbar () {
                     <Typography className={classes.logo} onClick={() => history.push('/')}>
                         <img src={'/assets/logo.jpeg'} alt={'logo'} className={classes.logo} />
                     </Typography>
-                    <div className={classes.search}>
-                        <Search className={classes.searchIcon} />
-                        <InputBase placeholder="Search..."  className={classes.searchInput} />
-                        <Cancel className={classes.cancel} onClick={() => {setShow(false)}} />
-                    </div>
+
+                    <SearchBar
+                        className={classes.search}
+                        onCancelSearch={() => setShow(false)}
+                        placeholder={"Search products..."}
+                        onChange={value => handleSearch(value)}
+                        dataSource ={searchRes}
+                    />
+
                     <div className={classes.badges}>
                         <IconButton onClick={() => setShow(true)}  className={classes.cancel}  >
                             <Search/>
