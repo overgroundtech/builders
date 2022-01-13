@@ -47,7 +47,7 @@ function DrawerMenu() {
       {
         text: "Dashboard",
         icon: <DashboardIcon />,
-        // path: "/dashboard",
+        path: "/dashboard",
       },
         {
         text: "Orders",

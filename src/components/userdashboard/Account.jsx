@@ -82,10 +82,10 @@ function Account() {
   };
 
   const handleSubmit = (event) => {
-      event.preventDefault();
-        console.log(values);
-  }
-
+    event.preventDefault();
+    console.log(values);
+  };
+//   console.log(option.value)
 
   return (
     <div className={classes.root}>
@@ -101,17 +101,14 @@ function Account() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.container}>
-          <form 
-          onSubmit ={handleSubmit}
+          <form
+            onSubmit={handleSubmit}
             autoComplete="off"
-            
+
             //   {...props}
           >
-            <Card>
-              <CardHeader
-                subheader="User Details"
-                title="Profile"
-              />
+            <Card elevation={4} >
+              <CardHeader subheader="User Details" title="Profile" />
               <Divider />
               <CardContent>
                 <Grid container spacing={3}>
@@ -200,7 +197,7 @@ function Account() {
                   p: 2,
                 }}
               >
-                <Button color="primary" variant="contained" type='submit' >
+                <Button color="primary" variant="contained" type="submit">
                   Save details
                 </Button>
               </Box>

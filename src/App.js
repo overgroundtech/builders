@@ -12,6 +12,7 @@ import ContactPage from './pages/ContactPage';
 import Orders from './components/userdashboard/Orders';
 import Account from './components/userdashboard/Account';
 import Messages from './components/userdashboard/Messages';
+import Dashboard from './components/userdashboard/Dashboard';
 
 function App() {
   return (
@@ -28,9 +29,9 @@ function App() {
           <Route exact path = '/contact'>
             <ContactPage/>
             </Route>
-            {/* <Route exact path = '/UserDashContainer' >
-            <UserDashContainer/>
-            </Route> */}
+            <Route exact path = '/dashboard' component ={Dashboard} >
+            <Dashboard/>
+            </Route>
             <Route exact path = '/Orders' component={Orders}>
             <Orders/>
             </Route>
