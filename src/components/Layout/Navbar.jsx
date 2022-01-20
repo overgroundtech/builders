@@ -22,9 +22,7 @@ import {CartContext} from '../../Context/CartContext';
 import {UserContext} from '../../Context/UserContext';
 import {AlertContext} from "../../Context/alertContext";
 import Alert from '@material-ui/lab/Alert';
-import SearchBar from 'material-ui-search-bar';
-import {useMutation} from '@apollo/client';
-import {SEARCH} from '../../graphql/mutation';
+import SearchArea from './Search';
 
 
 const useStyles = makeStyles( theme => ({
@@ -84,6 +82,11 @@ const useStyles = makeStyles( theme => ({
             display: "none"
         }
     },
+    showNav:{
+        [theme.breakpoints.up("md")]:{
+            display: "none"
+        }
+    },
     alert: {
         position: '-webkit-sticky sticky',
         top: '50vh',
@@ -99,28 +102,13 @@ export default function Navbar () {
     const {cart} = useContext(CartContext);
     const { login, setLogin, setUser, setRedirect } = useContext(UserContext)
     const {open, message, setOpen, setMessage} = useContext(AlertContext);
-    const [search, {loading, error}] = useMutation(SEARCH);
     const [show, setShow] = useState(false);
-    const [searchRes, setSearchRes] = useState(['this', 'hat', 'that']);
     const [anchorEl, setAnchorEl] = useState(null);
     const openMenu = Boolean(anchorEl);
 
     const classes = useStyles(show);
     const history = useHistory();
     const location = useLocation();
-
-    const handleSearch = async (value) => {
-        const {data} = await search({
-            variables: {
-                key: value
-            }
-        });
-        if(data){
-            console.log(data);
-            // setSearchRes(data.search.results);
-            console.log(searchRes);
-        }
-    }
 
     return (
         <>
@@ -130,19 +118,16 @@ export default function Navbar () {
                         <img src={'/assets/logo.jpeg'} alt={'logo'} className={classes.logo} />
                     </Typography>
 
-                    <SearchBar
-                        className={classes.search}
-                        onCancelSearch={() => setShow(false)}
-                        placeholder={"Search products..."}
-                        onChange={value => handleSearch(value)}
-                        dataSource ={searchRes}
-                    />
+                    <SearchArea className={classes.search} />
 
+                    {show? (<IconButton onClick={() => setShow(false)} className={classes.cancel} color={"secondary"}>
+                        <Cancel/>
+                    </IconButton>): ''}
                     <div className={classes.badges}>
-                        <IconButton onClick={() => setShow(true)}  className={classes.cancel}  >
+                        <IconButton onClick={() => setShow(true)}  className={classes.showNav} color={"secondary"} >
                             <Search/>
                         </IconButton>
-                        
+
                             <Badge badgeContent={cart? cart.count : 0} color='secondary' className={classes.badge}>
                             <AddShoppingCart onClick={() => history.push('/cart')} />
                             </Badge> 
