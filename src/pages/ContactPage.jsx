@@ -60,7 +60,7 @@ function ContactPage() {
         {" "}
         Contact Us here
       </Typography>
-      <Card style={{ backgroundColor: "transparent", width: "80%" }}>
+      <Card style={{ backgroundColor: "white", width: "80%",  }}>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
