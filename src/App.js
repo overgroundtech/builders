@@ -3,12 +3,16 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
 import ContactPage from "./pages/ContactPage";
 import Orders from "./components/userdashboard/Orders";
 import Account from "./components/userdashboard/Account";
 import Messages from "./components/userdashboard/Messages";
 import Dashboard from "./components/userdashboard/Dashboard";
+import Cart from './pages/Cart';
+
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -36,6 +40,19 @@ function App() {
           </Route>
           <Route exact path="/Messages" component={Messages}>
             <Messages />
+          </Route>
+            <Route exact path="/Messages/:id" component={Messages} />
+          <Route exact path = '/contact'>
+            <ContactPage/>
+            </Route>
+          <Route exact path='/login'>
+            <LoginPage />
+          </Route>
+          <Route exact path='/register'>
+            <RegisterPage />
+          </Route>
+          <Route exact path='/checkout'>
+            <Checkout />
           </Route>
         </Switch>
       </Layout>

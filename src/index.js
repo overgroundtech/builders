@@ -9,13 +9,25 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createUploadLink } from 'apollo-upload-client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import ContextProvider from "./Context/ContextWrapper";
+import { setContext } from "@apollo/client/link/context";
 
-const link = createUploadLink({
+
+const httpLink = createUploadLink({
   uri: 'https://buildershub.pythonanywhere.com/graphql/'
 });
 
+const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('token');
+    return {
+    headers: {
+    ...headers,
+    authorization: token ? `JWT ${token} `: "",
+    },
+    };
+  });
+
 const client = new ApolloClient({
-    link, 
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 });
 

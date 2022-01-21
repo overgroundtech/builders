@@ -3,6 +3,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card,CardMedia,CardContent, CardActionArea} from '@material-ui/core'
 import {ProductContext} from "../../Context/ProductContext";
+import {ArrowDropDown} from '@material-ui/icons';
 
 const useStyles = makeStyles (theme=>({
     sidebarContainer:{
@@ -52,24 +53,57 @@ function SidebarMobile({catProds}) {
     const {products, setProducts} = useContext(ProductContext);
     const classes = useStyles()
 
+
     const handleFilter = (id) => {
         const filtered = catProds.filter(item => item.category.id === id)[0]
-        setProducts(filtered.products)
+        return filtered.products
+    }
+
+    const allProducts = (arr) => {
+        let products = []
+        for(let i = 0; i < arr.length; i++){
+            for(let j = 0; j < arr[i].length; j++){
+                products = [...products, arr[i][j]];
+            }
+        }
+        return products;
+    }
+    let allProds = catProds.map(catProd => catProd.products);
+    const resetAll = () => {
+        setProducts(allProducts(allProds));
     }
 
     return (
         <Grid container spacing={2} className={classes.sidebarContainer} >
+            <Grid item  xs={3}>
+                <Card elevation={3} className={classes.root}
+                      className={products.length === allProducts(allProds).length ? classes.active : ''}
+                      onClick={resetAll}
+                >
+                    <CardActionArea>
+                        <CardMedia className={classes.media}>
+                            <ArrowDropDown color="secondary" />
+                        </CardMedia>
+                        <CardContent>
+                            <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
+                                All
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
+
             {catProds && catProds.map(item=>(
                 <Grid item  xs={3}  key={item.category.id}>
                     <Card elevation={3} className={classes.root} 
-                            className={products[0] && (products[0].categoryId === item.category.id? classes.active : '')}
-                            onClick={() => handleFilter(item.category.id)}
+                            className={products[0] && products[0].categoryId === item.category.id && handleFilter(item.category.id).length === products.length ? classes.active : ''}
+                            onClick={() => setProducts(handleFilter(item.category.id))}
                     >
                         <CardActionArea>
                             <CardMedia
                              className={classes.media}>
                                 <img src={item.category.image} className={classes.mediaImage} alt={item.id + "image"} />
-                             </CardMedia>                   
+                             </CardMedia>
                             <CardContent>
                                 <Typography gutterBottom variant="body2" component="p" className={classes.textStyle}>
                                     {item.category.name}

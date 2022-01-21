@@ -1,5 +1,26 @@
 import {gql} from '@apollo/client';
 
+export const REGISTER = gql`
+    mutation($username: String! $email: String! $password: String! $password1: String!){
+        createUser(username: $username email: $email password: $password password1: $password1){
+            success
+        }
+    }
+`
+
+export const TOKEN_AUTH = gql`
+    mutation($username: String! $password: String! ){
+        tokenAuth(username: $username password: $password){
+            token
+            user{
+                id
+                username
+                email
+            }
+        }
+    }
+`
+
 export const ADD_ITEM = gql`
 mutation($cartId: String! $productId: Int! $quantity: Int!){
     addItem(cartId: $cartId productId: $productId quantity: $quantity){
@@ -66,4 +87,15 @@ mutation($cartId: String! $productId: Int! $quantity: Int!){
       }
     }
   }
+`
+
+export const SEARCH = gql`
+    mutation ($key: String!){
+        search(key: $key){
+            results{
+                id
+                name
+            }
+        }
+    }
 `

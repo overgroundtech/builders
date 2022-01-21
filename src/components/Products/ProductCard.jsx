@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     maxWidth: 200,
   },
   media: {
-    height: 140,
+    height: 150,
   },
     btn: {
       width: '100%',

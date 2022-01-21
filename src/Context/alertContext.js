@@ -5,9 +5,11 @@ export const AlertContext = createContext();
 
 export default function AlertProvider({children}) {
     const [open, setOpen] = useState(false);
-    const[message, setMessage] = useState();
+    const [status, setStatus] = useState('')
+    const[message, setMessage] = useState('');
 
-    const providerValue = useMemo(()=>({open, setOpen, message, setMessage}), [open, setOpen, message, setMessage])
+    const providerValue = useMemo(()=>({open, setOpen, message, setMessage, status, setStatus}),
+        [open, setOpen, message, setMessage, status, setStatus])
 
     return (
         <AlertContext.Provider value={providerValue}>

@@ -5,13 +5,16 @@ import { Carousel as Slider } from 'react-responsive-carousel';
 
 const demoData = [
     {
-        image: 'https://media.istockphoto.com/photos/bathroom-faucet-picture-id182691828?b=1&k=20&m=182691828&s=170667a&w=0&h=gZj86NU5-6ocvWuFUeh8rLJwOOsaK7Y-vhwOeSWz4U4='
+        image: 'assets/wp1842346.webp'
     },
     {
-        image: 'https://media.istockphoto.com/photos/house-chores-for-kids-picture-id1256019135?b=1&k=20&m=1256019135&s=170667a&w=0&h=pvGNqEqYaKQKmWY-Q-r6T2eFQQfc5r_X-iHoV8UebnU='
+        image: 'assets/wp1842347.webp'
     },
     {
-        image: 'https://media.istockphoto.com/photos/pouring-water-from-a-faucet-picture-id855532396?b=1&k=20&m=855532396&s=170667a&w=0&h=El06cjuMg1SJC5Ozf4daCgBwDeal1IsIkCAdqZ9wskQ='
+        image: 'assets/wp1842349.webp'
+    },
+    {
+        image: 'assets/wp1842350.webp'
     }
 ]
 
@@ -23,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '-45%',
         width: '90%',
         borderRadius: '10px',
-        color: '#ffffffff',
         background: 'transparent',
         padding: theme.spacing(3),
         textAlign: 'center',
@@ -53,10 +55,10 @@ export default function Carousel () {
             {demoData.map((item, index) => (
                 <div key={index}>
                     <img src={item.image} alt={`slide ${index}`} className={classes.sliderImage}/>
-                    <Typography variant="h5" className={classes.sliderTitle}>
-                        Hero Slide
-                        <Typography variant="h6"  component="p" className={classes.sliderTitle}>
-                            sub Title
+                    <Typography variant="h3" className={classes.sliderTitle} color="textSecondary">
+                         BUILDERS OPTION.
+                        <Typography variant="h5"  component="p">
+                            Building Kenya, the Modern.
                         </Typography>
                     </Typography>
                 </div>
