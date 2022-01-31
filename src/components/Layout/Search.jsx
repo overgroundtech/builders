@@ -3,9 +3,16 @@ import {ReactSearchAutocomplete} from 'react-search-autocomplete';
 import {useMutation} from "@apollo/client";
 import {SEARCH} from "../../graphql/mutation";
 import {useHistory} from "react-router-dom";
+import {makeStyles} from '@material-ui/core';
 
+const useStyles = makeStyles(theme => ({
+    search: {
+        width: '100%'
+    }
+}))
 
 export default function SearchArea(){
+    const classes = useStyles();
     const [search, {loading, error}] = useMutation(SEARCH);
     const [searchRes, setSearchRes] = useState([]);
     const history = useHistory();
@@ -27,7 +34,7 @@ export default function SearchArea(){
     }
 
     return (
-        <div style={{width: 400}}>
+        <div className={classes.search}>
             <ReactSearchAutocomplete
                 items={searchRes}
                 onSearch={handleSearch}

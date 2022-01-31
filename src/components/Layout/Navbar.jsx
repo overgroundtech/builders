@@ -51,21 +51,15 @@ const useStyles = makeStyles( theme => ({
         marginLeft: theme.spacing(2)
     },
     search: {
-        display: "flex",
-        alignItems: "center",
-        background: grey[100],
-        width: theme.spacing(50),
-        borderRadius: theme.shape.borderRadius,
-        '&: hover': {
-            backgroundColor: 'blue'   
-        },
+        width: '100%',
+        maxWidth: 600,
         marginLeft: theme.spacing(1),
         [theme.breakpoints.down("sm")]: {
             display: (show) => {
-                if(show){
-                    return "flex"
+                if(!show){
+                    return 'none'
                 }else{
-                    return "none"
+                    return 'block'
                 }
             }
         }
@@ -118,7 +112,9 @@ export default function Navbar () {
                         <img src={'/assets/logo.jpeg'} alt={'logo'} className={classes.logo} />
                     </Typography>
 
-                    <SearchArea className={classes.search} />
+                    <div className={classes.search}>
+                        <SearchArea />
+                    </div>
 
                     {show? (<IconButton onClick={() => setShow(false)} className={classes.cancel} color={"secondary"}>
                         <Cancel/>
