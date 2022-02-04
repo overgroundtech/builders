@@ -9,7 +9,6 @@ import {
 import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import SearchIcon from "@material-ui/icons/Search";
 import back from "../../src/images/back.png";
 import { Link } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
