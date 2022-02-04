@@ -62,7 +62,7 @@ export default function CheckoutForm ({ user }){
 
             {user && (
             <form className={classes.fieldContainer} onSubmit={handleSubmit}>
-                <Typography variant={'h5'}>Address Details</Typography>
+                <Typography variant={'h5'}>Shipping Info</Typography>
 
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>

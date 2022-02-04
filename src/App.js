@@ -9,10 +9,10 @@ import Account from "./components/userdashboard/Account";
 import Messages from "./components/userdashboard/Messages";
 import Dashboard from "./components/userdashboard/Dashboard";
 import Cart from './pages/Cart';
-
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -53,6 +53,9 @@ function App() {
           </Route>
           <Route exact path='/checkout'>
             <Checkout />
+          </Route>
+          <Route exact path='/payment'>
+            <Payment />
           </Route>
         </Switch>
       </Layout>
