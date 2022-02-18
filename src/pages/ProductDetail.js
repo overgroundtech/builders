@@ -21,6 +21,7 @@ import { ADD_ITEM } from "../graphql/mutation";
 import { useMutation } from "@apollo/client";
 import { CartContext } from "../Context/CartContext";
 import Products from "../components/Products/Products";
+import ProductDetailsContent from "../components/Products/ProductDetailsContent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,9 +31,12 @@ const useStyles = makeStyles((theme) => ({
   },
   root2: {
     display: "flex",
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(20),
     marginBottom: theme.spacing(1),
     justifyContent: "center",
+    [theme.breakpoints.up("sm")]: {
+      marginTop: theme.spacing(1),
+    },
   },
   imageContainer: {
     display: "flex",
@@ -57,10 +61,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   productDescContainer: {
+    alignItems: "center",
     display: "flex",
     flexDirection: "column",
     border: "1px solid rgba(0, 0, 0, 0.09)",
+    marginTop: theme.spacing(1),
     // margin : theme.spacing(2),
+    height: theme.spacing(30),
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.09)",
   },
   quantityBox: {
     display: "flex",
@@ -97,21 +105,35 @@ const useStyles = makeStyles((theme) => ({
   searchMediaDelivery: {
     display: "flex",
     flexDirection: "column",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
+    alignItems: "center",
+    // [theme.breakpoints.down("xs")]: {
+    //   display: "none",
+    // },
   },
   search: {
     display: "flex",
   },
-  facebookPluginBox: {
+  facebookHolder: {
     display: "flex",
     flexDirection: "column",
+    marginTop: theme.spacing(10),
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.09)",
+  },
+
+  facebookIframe: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    height: "100px",
+    border: "1px solid rgba(0, 0, 0, 0.25)",
+    overflow: "hidden",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    justifyContent: "center",
   },
   facebookLikeImage: {
     backgroundImage: `url(${back})`,
     position: "relative",
-    display: "flex",
     objectFit: "contain",
     width: "70%",
     height: "70%",
@@ -140,7 +162,16 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "start",
+    flexDirection: "column",
+    justifyContent: "center",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+    height: theme.spacing(50),
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(10),
+    [theme.breakpoints.up("xs")]: {
+      marginTop: theme.spacing(2),
+    },
   },
   butonsContainer: {
     display: "flex",
@@ -154,6 +185,7 @@ const useStyles = makeStyles((theme) => ({
   },
   InputBaseCont: {
     width: theme.spacing(10),
+    height: theme.spacing(3),
   },
   addtoCart: {
     display: "flex",
@@ -205,8 +237,6 @@ function ProductDetail({ match }) {
           <Grid item xs={12} sm={4} className={classes.productDescContainer}>
             <Typography variant="h5">{data.product.name}</Typography>
             <Typography variant="h6">${data.product.price}</Typography>
-            <Typography variant="body1">Product Description </Typography>
-            <Typography>{data.product.description}</Typography>
             <div className={classes.quantityAndAddContainer}>
               <Button
                 size="small"
@@ -264,37 +294,19 @@ function ProductDetail({ match }) {
             >
               Add to Cart
             </Button>
-            <Grid item xs={12} sm={6} className={classes.categoryLinks}>
-              <Typography>Categories:</Typography>
-              <Link>Taps</Link>,<Link>Basins</Link>
-            </Grid>
-            <Grid item xs={12} sm={6} className={classes.socialLink}>
-              <Link underline="none">
-                {" "}
-                <FacebookIcon className={classes.icons} />{" "}
-              </Link>
-              <Link underline="none">
-                {" "}
-                <InstagramIcon className={classes.icons} />{" "}
-              </Link>
-              <Link underline="none">
-                {" "}
-                <TwitterIcon className={classes.icons} />{" "}
-              </Link>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={4} className={classes.searchMediaDelivery}>
-            {/* <Typography variant="h5">Search Any Product Here</Typography>
-                    <div className={classes.search}>
-                    <TextField id="outlined-basic" label="Search for products" variant="outlined" className={classes.textField} />
-                    <Button variant="contained" color="primary"><SearchIcon/></Button>
-                    </div> */}
-            <div className={classes.facebookPluginBox}>
-              <Typography variant="h6">Like us on Facebook</Typography>
-              <div className={classes.facebookLikeImage}>
-                {/* <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="100%" height="100%" style={{border: 'none',overflow: 'hidden'}} scrolling="no" frameBorder="0" allowTransparency="true" allow="encrypted-media"></iframe> */}
+            <div className={classes.facebookHolder}>
+              <Typography variant="h6">Like us on facebook</Typography>
+              <div>
+                <iframe
+                  className={classes.facebookIframe}
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbuilderspointke%2F&tabs=timeline&width=400&height=100&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                ></iframe>
               </div>
             </div>
+          </Grid>
+
+          <Grid item xs={12} sm={4} className={classes.description}>
             <Grid>
               <Typography variant="h6">Delivery Information</Typography>
               <Typography variant="body1">
@@ -302,6 +314,7 @@ function ProductDetail({ match }) {
                 countrywide
               </Typography>
             </Grid>
+            <br />
             <Grid>
               <Typography variant="h6">Return and Refunds</Typography>
               <Typography variant="body1">
@@ -309,30 +322,8 @@ function ProductDetail({ match }) {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container spacing={3} className={classes.root2}>
-            <Grid item xs={12} sm={6} className={classes.linksContainer}>
-              <Grid>
-                <Link underline="none" className={classes.link}>
-                  Description
-                </Link>
-                <Link underline="none" className={classes.link}>
-                  Reviews(0)
-                </Link>
-                <Link underline="none" className={classes.link}>
-                  Delivey & Returns
-                </Link>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3} className={classes.root2}>
-            <Grid item xs={12} sm={6} className={classes.description}>
-              <Grid>
-                <Typography variant="h5">Product Description</Typography>
-                <Typography>{data.product.description}</Typography>
-              </Grid>
-            </Grid>
-          </Grid>
         </Grid>
+        <ProductDetailsContent value={data.product.description} />
         <div className={classes.relatedProductsCont}>
           <Typography className={classes.relatedProdsText}>
             Related Products

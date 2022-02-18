@@ -77,10 +77,6 @@ function Footer() {
               </Link>
             </Box>
             <Box>
-              <Link className={classes.link} underline="none">
-                {" "}
-                <Typography>Categories </Typography>
-              </Link>
             </Box>
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -95,10 +91,6 @@ function Footer() {
               </Link>
             </Box>
             <Box>
-              <Link className={classes.social} underline="none">
-                {" "}
-                <YouTubeIcon className={classes.icons} /> Youtube
-              </Link>
             </Box>
             <Box>
               <Link className={classes.social} underline="none">
